@@ -1625,8 +1625,9 @@
                 ...cert,	
                 archivedAt: new Date().toISOString(),
                 // Keep only relevant historical fields to save space
-                expiryDate: cert.expiryDate,
-                certificateLink: cert.certificateLink
+                // FIX: Ensure no undefined values for Firebase set()
+                expiryDate: cert.expiryDate || '',
+                certificateLink: cert.certificateLink || ''
             });
 
 
@@ -2280,8 +2281,9 @@
                             ...originalCert,	
                             archivedAt: new Date().toISOString(),
                             // Keep only relevant historical fields to save space
-                            expiryDate: originalCert.expiryDate,
-                            certificateLink: originalCert.certificateLink
+                            // FIX: Ensure no undefined values for Firebase set()
+                            expiryDate: originalCert.expiryDate || '',
+                            certificateLink: originalCert.certificateLink || ''
                         });
                     }
                     
@@ -2310,7 +2312,6 @@
                         updatedCert.renewalHistory = originalCert.renewalHistory || [];
                     } else {
                         // Ensure CD certs DO NOT have these properties when saving to Firebase
-                        delete updatedCert.deviceId;
                         delete updatedCert.deviceId;
                         delete updatedCert.serialNumber;
                         delete updatedCert.renewalHistory;
