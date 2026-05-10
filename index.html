@@ -74,6 +74,22 @@
         input[type="date"] {
             color-scheme: dark;
         }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.3s ease-out forwards;
+        }
     </style>
 </head>
 
@@ -157,6 +173,30 @@
                     <span class="flex-1 text-left">Aman Certificate</span>
                 </button>
             </nav>
+
+            <div class="px-4 mb-4 mt-auto space-y-2">
+                <button id="link-onedrive-btn"
+                    class="flex items-center w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors border border-blue-500/50 text-blue-400 hover:bg-blue-900/30">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span id="onedrive-status-text">Link OneDrive</span>
+                </button>
+
+                <button id="settings-btn"
+                    class="flex items-center w-full px-4 py-2 text-sm font-medium rounded-lg transition-colors border border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    <span>Settings</span>
+                </button>
+            </div>
+
             <button id="logout-btn"
                 class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-red-400 hover:bg-red-900/30 rounded-lg transition-colors border border-red-900/30">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -170,43 +210,6 @@
         </aside>
 
         <main class="flex-1 p-8 overflow-y-auto h-full">
-
-            <!-- Notification Bell and Dropdown -->
-            <div class="absolute top-0 right-0 m-6 z-30 flex items-center gap-2">
-                <!-- Reports & Tools Button -->
-                <button id="tools-btn"
-                    class="p-2 rounded-full text-gray-300 hover:text-white hover:bg-gray-800 transition-colors"
-                    title="Generate Reports">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                        class="w-6 h-6">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                        <polyline points="14 2 14 8 20 8"></polyline>
-                        <line x1="16" y1="13" x2="8" y2="13"></line>
-                        <line x1="16" y1="17" x2="8" y2="17"></line>
-                        <polyline points="10 9 9 9 8 9"></polyline>
-                    </svg>
-                </button>
-                <div class="relative">
-                    <button id="notification-btn"
-                        class="p-2 rounded-full text-gray-300 hover:text-white hover:bg-gray-800 transition-colors relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="w-6 h-6">
-                            <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
-                            <path d="M10.375 22a2 2 0 1 0 3.25 0"></path>
-                        </svg>
-                        <span id="notification-count"
-                            class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full hidden">0</span>
-                    </button>
-                    <div id="notification-dropdown"
-                        class="absolute right-0 mt-2 w-80 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden max-h-96 overflow-y-auto">
-                        <div class="py-1" id="notification-list">
-                            <!-- Notifications will be rendered here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div id="page-Civil Defence" class="page active"></div>
             <div id="page-Aman Certificate" class="page"></div>
@@ -223,6 +226,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+        import { get, set as setIdb } from 'https://cdn.jsdelivr.net/npm/idb-keyval@6/+esm';
 
         // Firebase Realtime Database Configuration (Original content preserved)
         // NOTE: This uses Firebase Realtime Database and not Firestore as per the original code.
@@ -240,6 +244,76 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         const auth = getAuth(app);
+
+        // --------------------------------------------------------------
+        // 2.5 ONEDRIVE FILE SYSTEM API
+        // --------------------------------------------------------------
+        let oneDriveFolderHandle = null;
+
+        async function initOneDrive() {
+            try {
+                const handle = await get('oneDriveHandle');
+                if (handle) {
+                    const options = { mode: 'readwrite' };
+                    if ((await handle.queryPermission(options)) === 'granted') {
+                        oneDriveFolderHandle = handle;
+                        document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
+                        document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
+                        document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
+                    } else {
+                        document.getElementById('onedrive-status-text').textContent = 'Grant Folder Access';
+                    }
+                }
+            } catch (e) {
+                console.error("Init OneDrive error", e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('link-onedrive-btn').addEventListener('click', async () => {
+                try {
+                    let handle = await get('oneDriveHandle');
+                    if (handle && (await handle.queryPermission({ mode: 'readwrite' })) === 'prompt') {
+                        const perm = await handle.requestPermission({ mode: 'readwrite' });
+                        if (perm === 'granted') {
+                            oneDriveFolderHandle = handle;
+                            document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
+                            document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
+                            document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
+                            return;
+                        }
+                    }
+
+                    handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+                    await setIdb('oneDriveHandle', handle);
+                    oneDriveFolderHandle = handle;
+                    document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
+                    document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
+                    document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
+                } catch (e) {
+                    console.error("Folder picker error", e);
+                }
+            });
+        });
+
+        window.openLocalFile = async (fileName) => {
+            if (!oneDriveFolderHandle) {
+                showModal("Access Required", "<p class='text-red-400'>Please click 'Link OneDrive' or 'Grant Folder Access' in the sidebar first.</p>");
+                return;
+            }
+            try {
+                if ((await oneDriveFolderHandle.queryPermission({ mode: 'read' })) !== 'granted') {
+                    await oneDriveFolderHandle.requestPermission({ mode: 'read' });
+                }
+                const fileHandle = await oneDriveFolderHandle.getFileHandle(fileName);
+                const file = await fileHandle.getFile();
+                const url = URL.createObjectURL(file);
+                window.open(url, '_blank');
+            } catch (err) {
+                console.error(err);
+                showModal("File Not Found", `<p class='text-red-400'>Could not open the file. It may have been moved or deleted from your OneDrive folder. Error: ${err.message}</p>`);
+            }
+        };
 
         // --------------------------------------------------------------
         // 2. AUTHENTICATION LOGIC
@@ -327,8 +401,8 @@
             'Aman Certificate': { validity: 'All', phase: 'All', workflow: 'All', search: '' }
         };
 
-        const CD_WORKFLOW_STEPS = ['Renewal Pending', 'Informed Fire team', 'Awaiting inspection', 'Inspection Date', 'Certificate ready', 'AMC ready'];
-        const AMAN_WORKFLOW_STEPS = ['Installation in Progress', 'Pending Renewal', 'Certificate ready'];
+        const CD_WORKFLOW_STEPS = ['AMC ready', 'Renewal Pending', 'Informed Fire team', 'Awaiting inspection', 'Inspection Date', 'Certificate ready'];
+        const AMAN_WORKFLOW_STEPS = ['Application Done', 'Installation in Progress', 'Installation Done', 'Pending Renewal', 'Certificate ready'];
 
         // --------------------------------------------------------------
         // 4. DATABASE FUNCTIONS
@@ -373,9 +447,14 @@
                     historyData = {};
                     updateProjectDropdown();
                 }
-                render();
-                // ADDED: Update notifications after data fetch
-                updateNotifications();
+                // Only re-render the main page if no modal is currently open.
+                // When a modal (workflow manager, hub, etc.) is visible, we update
+                // the in-memory data silently to avoid a disruptive page flash.
+                const isModalOpen = !document.getElementById('modal-container').classList.contains('hidden');
+                if (!isModalOpen) {
+                    render();
+                    updateNotifications();
+                }
             }, (error) => {
                 console.error("Error loading data:", error);
                 if (error.code === 'PERMISSION_DENIED') {
@@ -447,8 +526,6 @@
         // --------------------------------------------------------------
         // 5.1 CUSTOM REPORTING LOGIC
         // --------------------------------------------------------------
-
-        document.getElementById('tools-btn').addEventListener('click', handleShowTools);
 
         function handleShowTools() {
             const modalContent = `
@@ -723,62 +800,33 @@
         }
 
         function updateNotifications() {
-            const notifications = generateExpiryNotifications();
-            const countEl = document.getElementById('notification-count');
-            const listEl = document.getElementById('notification-list');
-            const bellBtn = document.getElementById('notification-btn');
-
-            countEl.textContent = notifications.length;
-            if (notifications.length > 0) {
-                countEl.classList.remove('hidden');
-                bellBtn.classList.add('animate-pulse');
-            } else {
-                countEl.classList.add('hidden');
-                bellBtn.classList.remove('animate-pulse');
-            }
-
-            if (notifications.length === 0) {
-                listEl.innerHTML = '<p class="p-3 text-center text-gray-400 text-sm">No expiry notifications.</p>';
-                return;
-            }
-
-            listEl.innerHTML = notifications.map(notif => {
-                const colorClass = notif.urgency === 'red' ? 'bg-red-900/40 hover:bg-red-900/60' : 'bg-yellow-900/40 hover:bg-yellow-900/60';
-                return `
-                    <a href="#" data-id="${notif.id}" data-type="${notif.type}" class="notification-item flex px-4 py-3 border-b border-gray-700 ${colorClass} transition-colors">
-                        <div class="flex-shrink-0 pt-1">
-                            <span class="w-3 h-3 rounded-full ${notif.urgency === 'red' ? 'bg-red-500' : 'bg-yellow-500'} inline-block"></span>
-                        </div>
-                        <div class="ml-3 text-sm font-medium text-gray-200">
-                            ${notif.message.replace(/\*\*/g, '<b>').replace(/\*\*/g, '</b>')}
-                        </div>
-                    </a>
-                `;
-            }).join('');
-
-            // Attach click handlers to new list items
-            document.querySelectorAll('.notification-item').forEach(item => {
-                item.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const id = e.currentTarget.dataset.id;
-                    const type = e.currentTarget.dataset.type;
-                    handleNotificationClick(id, type);
-                });
-            });
+            // Notification bell has been removed from the UI.
+            // This is intentionally a no-op kept for call-site compatibility.
         }
 
         function handleNotificationClick(id, type) {
-            document.getElementById('notification-dropdown').classList.add('hidden');
-            currentPage = type; // Switch to the relevant page
+            const dropdown = document.getElementById('notification-dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+            currentPage = type;
             render();
-            // Delay opening the modal slightly to ensure the correct page has rendered
             setTimeout(() => {
-                handleShowForm(type, id); // Open the edit form
+                handleShowForm(type, id);
             }, 100);
         }
 
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 right-4 bg-yellow-600/90 border border-yellow-500 text-white px-6 py-4 rounded-lg shadow-2xl z-50 animate-fade-in-up flex items-start gap-3 max-w-sm';
+            toast.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg> <div class="text-sm font-medium leading-snug">${message}</div>`;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 6000);
+        }
+
         function checkAndApplyAutomaticStatusUpdates() {
-            let changed = false;
+            let changedCount = 0;
             const today = new Date().setHours(0, 0, 0, 0);
 
             cdCerts.forEach(cert => {
@@ -788,7 +836,7 @@
                     if (expiry < today) {
                         if (!CD_WORKFLOW_STEPS.includes(cert.workflowStatus) || cert.workflowStatus === 'Certificate ready') {
                             cert.workflowStatus = 'Renewal Pending';
-                            changed = true;
+                            changedCount++;
                         }
                     }
                 }
@@ -801,19 +849,23 @@
                     if (expiry < today) {
                         if (cert.workflowStatus !== 'Pending Renewal' && cert.workflowStatus !== 'Installation in Progress') {
                             cert.workflowStatus = 'Pending Renewal';
-                            changed = true;
+                            changedCount++;
                         }
                     }
                 }
             });
 
-            if (changed) {
+            if (changedCount > 0) {
                 saveDataToFirebase();
+                if (window.hasRenderedOnce) {
+                    showToast(`System Auto-Correct: ${changedCount} expired certificate(s) were automatically moved back to Pending Renewal. You cannot mark an expired certificate as 'Ready'.`);
+                }
             }
         }
 
         function render() {
             checkAndApplyAutomaticStatusUpdates();
+            window.hasRenderedOnce = true;
 
             // FILTER DATA BY PROJECT BEFORE RENDERING
             const filteredCdCerts = cdCerts.filter(c => (c.project || 'Main Project') === currentProject);
@@ -846,47 +898,75 @@
 
             let detailCards = '';
 
+            // Icons (inline SVG strings)
+            const iTotal  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+            const iValid  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+            const iNear   = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+            const iExpired= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+            const iPending= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+            const iInspect= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+            const iCal    = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+            const iAmc    = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+            const iInstall= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`;
+            const iReady  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>`;
+
             if (isCivilDefence) {
                 const awaitingInspection = data.filter(c => c.workflowStatus === 'Awaiting inspection').length;
-                const inspectionDateSet = data.filter(c => c.workflowStatus === 'Inspection Date').length;
-                const amcReady = data.filter(c => c.workflowStatus === 'AMC ready').length;
-                const renewalPending = data.filter(c => c.workflowStatus === 'Renewal Pending').length;
+                const inspectionDateSet  = data.filter(c => c.workflowStatus === 'Inspection Date').length;
+                const amcReady          = data.filter(c => c.workflowStatus === 'AMC ready').length;
+                const renewalPending    = data.filter(c => c.workflowStatus === 'Renewal Pending').length;
                 detailCards = `
-                    ${generateDetailStatCardHTML(`Total ${currentProject} CD`, data.length)}
-                    ${generateDetailStatCardHTML('Valid', status.valid)}
-                    ${generateDetailStatCardHTML('Near Expiry', status.nearExpiry)}
-                    ${generateDetailStatCardHTML('Expired', status.expired)}
-                    ${generateDetailStatCardHTML('Renewal Pending', renewalPending)}
-                    ${generateDetailStatCardHTML('Awaiting Inspection', awaitingInspection)}
-                    ${generateDetailStatCardHTML('Inspection Set', inspectionDateSet)}
-                    ${generateDetailStatCardHTML('AMC Ready', amcReady)}
-                `;
+                    ${generateDetailStatCardHTML(`Total ${currentProject} CD`, data.length, 'teal', iTotal)}
+                    ${generateDetailStatCardHTML('Valid', status.valid, 'green', iValid)}
+                    ${generateDetailStatCardHTML('Near Expiry', status.nearExpiry, 'yellow', iNear)}
+                    ${generateDetailStatCardHTML('Expired', status.expired, 'red', iExpired)}
+                    ${generateDetailStatCardHTML('Renewal Pending', renewalPending, 'orange', iPending)}
+                    ${generateDetailStatCardHTML('Awaiting Inspection', awaitingInspection, 'blue', iInspect)}
+                    ${generateDetailStatCardHTML('Inspection Set', inspectionDateSet, 'purple', iCal)}
+                    ${generateDetailStatCardHTML('AMC Ready', amcReady, 'gray', iAmc)}`;
             } else { // Aman
+                const appDone    = data.filter(c => c.workflowStatus === 'Application Done').length;
                 const installing = data.filter(c => c.workflowStatus === 'Installation in Progress').length;
+                const installDone= data.filter(c => c.workflowStatus === 'Installation Done').length;
                 const renewalPending = data.filter(c => c.workflowStatus === 'Pending Renewal').length;
-                const ready = data.filter(c => c.workflowStatus === 'Certificate ready').length;
+                const ready      = data.filter(c => c.workflowStatus === 'Certificate ready').length;
                 detailCards = `
-                    ${generateDetailStatCardHTML(`Total ${currentProject} Aman`, data.length)}
-                    ${generateDetailStatCardHTML('Valid', status.valid)}
-                    ${generateDetailStatCardHTML('Near Expiry', status.nearExpiry)}
-                    ${generateDetailStatCardHTML('Expired', status.expired)}
-                    ${generateDetailStatCardHTML('Installation in Progress', installing)}
-                    ${generateDetailStatCardHTML('Pending Renewal', renewalPending)}
-                    ${generateDetailStatCardHTML('Certificate Ready', ready)}
-                `;
+                    ${generateDetailStatCardHTML(`Total ${currentProject} Aman`, data.length, 'teal', iTotal)}
+                    ${generateDetailStatCardHTML('Valid', status.valid, 'green', iValid)}
+                    ${generateDetailStatCardHTML('Near Expiry', status.nearExpiry, 'yellow', iNear)}
+                    ${generateDetailStatCardHTML('Expired', status.expired, 'red', iExpired)}
+                    ${generateDetailStatCardHTML('Application Done', appDone, 'blue', iCal)}
+                    ${generateDetailStatCardHTML('Installation in Progress', installing, 'purple', iInstall)}
+                    ${generateDetailStatCardHTML('Installation Done', installDone, 'orange', iInspect)}
+                    ${generateDetailStatCardHTML('Pending Renewal', renewalPending, 'orange', iPending)}
+                    ${generateDetailStatCardHTML('Certificate Ready', ready, 'green', iReady)}`;
             }
 
-            return `<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4 mb-8">${detailCards}</div>`;
+            return `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-${isCivilDefence ? 8 : 9} gap-3 mb-8">${detailCards}</div>`;
         }
 
-        function generateDetailStatCardHTML(title, value) {
+        function generateDetailStatCardHTML(title, value, color, icon) {
+            const colorMap = {
+                teal:   { bg: 'bg-teal-500/10',   border: 'border-teal-500/30',   text: 'text-teal-400',   num: 'text-teal-300' },
+                green:  { bg: 'bg-green-500/10',  border: 'border-green-500/30',  text: 'text-green-400',  num: 'text-green-300' },
+                yellow: { bg: 'bg-yellow-500/10', border: 'border-yellow-500/30', text: 'text-yellow-400', num: 'text-yellow-300' },
+                red:    { bg: 'bg-red-500/10',    border: 'border-red-500/30',    text: 'text-red-400',    num: 'text-red-300' },
+                blue:   { bg: 'bg-blue-500/10',   border: 'border-blue-500/30',   text: 'text-blue-400',   num: 'text-blue-300' },
+                purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', num: 'text-purple-300' },
+                orange: { bg: 'bg-orange-500/10', border: 'border-orange-500/30', text: 'text-orange-400', num: 'text-orange-300' },
+                gray:   { bg: 'bg-gray-700/40',   border: 'border-gray-600/50',   text: 'text-gray-400',   num: 'text-white' },
+            };
+            const c = colorMap[color] || colorMap.gray;
             return `
-            <div class="bg-gray-800/50 p-4 rounded-xl border border-gray-700/50 text-center">
-                <p class="text-2xl font-bold text-white">${value}</p>
-                <p class="text-sm text-gray-400">${title}</p>
-            </div>
-            `;
+            <div class="${c.bg} border ${c.border} rounded-2xl p-4 flex flex-col gap-2 hover:scale-105 transition-transform duration-200 cursor-default">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold ${c.text} uppercase tracking-widest leading-tight">${title}</span>
+                    <span class="${c.text} opacity-70">${icon}</span>
+                </div>
+                <p class="text-3xl font-black ${c.num} leading-none">${value}</p>
+            </div>`;
         }
+
 
         function renderCertificatePage(type, data) {
             const isCivilDefence = type === 'Civil Defence';
@@ -907,26 +987,25 @@
                     <!-- Section Title -->
                     <h2 class="text-2xl font-bold text-teal-400 mb-4">${sectionTitle}</h2>
                     <div class="bg-gray-800/50 border border-gray-700/50 rounded-2xl overflow-hidden shadow-lg backdrop-blur-sm">
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-700">
+                        <table class="min-w-full table-fixed divide-y divide-gray-700">
                                 <thead class="bg-gray-800">
                                     <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Property Number</th>
-                                        ${isWarehouse ? '<th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Phase</th>' : ''}
-                                        ${isCivilDefence ? '<th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Issue Date</th>' : ''}
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Expiry Date</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Validity Status</th>
-                                        ${isAman ? '<th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Device ID</th>' : ''}
-                                        ${isAman ? '<th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Serial No.</th>' : ''}
-                                        ${isCivilDefence || isAman ? '<th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Workflow Status</th>' : ''}
-                                        <th scope="col" class="px-6 py-3 text-right text-xs font-bold text-gray-300 uppercase tracking-wider">Actions</th>
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Property Number</th>
+                                        ${isWarehouse ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Phase</th>' : ''}
+                                        ${isCivilDefence ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Issue Date</th>' : ''}
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Expiry Date</th>
+                                        ${isCivilDefence ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">AMC Expiry</th>' : ''}
+                                        <th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Status</th>
+                                        ${isAman ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Device ID</th>' : ''}
+                                        ${isAman ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Serial No.</th>' : ''}
+                                        ${isCivilDefence || isAman ? '<th scope="col" class="px-3 py-3 text-left text-xs font-bold text-gray-300 uppercase tracking-wider">Workflow</th>' : ''}
+                                        <th scope="col" class="px-3 py-3 text-right text-xs font-bold text-gray-300 uppercase tracking-wider">Actions</th>
                                     </tr>
                                 </thead>
                                 <!-- Updated table body to dark mode theme -->
                                 <tbody id="table-body-${sectionTitle.replace(/\s+/g, '-')}-${typeId}" class="divide-y divide-gray-700 text-white">
                                 </tbody>
                             </table>
-                        </div>
                     </div>
                 </div>
                 `
@@ -936,31 +1015,74 @@
 
             const searchPlaceholder = isCivilDefence ? "Search by Property No..." : "Search by Property, Account, Record, Device, or Serial No...";
 
+            // BULK REMINDER BANNER
+            let bannerHTML = '';
+            if (isCivilDefence && isEditor && !window.sessionStorage.getItem('hideBulkBanner')) {
+                const expiredCDCerts = data.filter(c => getValidityStatus(c.expiryDate).text === 'Expired' && c.workflowStatus === 'Renewal Pending');
+                if (expiredCDCerts.length > 0) {
+                    bannerHTML = `
+                    <div id="bulk-expiry-banner" class="bg-red-900/40 border border-red-500 rounded-lg p-4 mb-6 flex flex-col md:flex-row justify-between items-center gap-4 shadow-lg">
+                        <div>
+                            <h4 class="text-lg font-bold text-red-400">Action Required: ${expiredCDCerts.length} Expired Certificate(s)</h4>
+                            <p class="text-sm text-gray-300">Please inform the Fire AMC team to initiate renewal.</p>
+                        </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <button id="bulk-email-btn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold rounded transition-colors flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>Email Fire Team</button>
+                            <button id="bulk-informed-btn" class="px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-sm font-semibold rounded transition-colors">Mark as Informed</button>
+                            <button id="bulk-remind-later-btn" class="px-4 py-2 bg-gray-600 hover:bg-gray-500 text-white text-sm font-semibold rounded transition-colors">Remind Later</button>
+                        </div>
+                    </div>
+                    `;
+                }
+            }
+
             pageEl.innerHTML = `
+                ${bannerHTML}
                 <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
                     <h1 class="text-4xl font-bold text-white">${type} Certificates</h1>
-                    <div class="flex items-center gap-2 flex-wrap">
+                    <!-- Toolbar: all groups in one row, no wrapping overflow -->
+                    <div class="flex items-center gap-2">
+                        <!-- Group 1: View / Navigate -->
+                        <div class="flex items-center gap-1 bg-gray-800 border border-gray-700 rounded-xl p-1">
+                            <button id="workflow-hub-btn"
+                                class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+                                title="Open Active Workflows Hub">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+                                Active Workflows
+                            </button>
+                            <button id="tools-btn"
+                                class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+                                title="Generate Custom PDF Report">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                Custom Report
+                            </button>
+                        </div>
+
+                        <!-- Group 2: Downloads -->
+                        <div class="flex items-center gap-1 bg-gray-800 border border-gray-700 rounded-xl p-1">
+                            <button id="download-btn-${typeId}"
+                                class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-gray-300 hover:text-white hover:bg-gray-700 rounded-lg transition-colors"
+                                title="Download Certificate Status Report">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+                                Download PDF
+                            </button>
+                            ${isAman ? `
+                            <button id="financial-report-btn-${typeId}"
+                                class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-yellow-300 hover:text-yellow-100 hover:bg-yellow-700/40 rounded-lg transition-colors"
+                                title="Financial Report">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                Financial
+                            </button>` : ''}
+                        </div>
+
+                        <!-- Group 3: Primary Action -->
                         ${isEditor ? `
-                        <button id="import-btn-${typeId}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>Import Data
-                        </button>
-                        <button id="export-btn-${typeId}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>Export Data
-                        </button>
-                        ` : ''}
-                        <button id="download-btn-${typeId}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-gray-700 hover:bg-gray-600 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>Download Report
-                        </button>
-                        ${isAman ? `
-                        <button id="financial-report-btn-${typeId}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-yellow-600 hover:bg-yellow-500 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-                            Financial Report
+                        <button id="add-btn-${typeId}"
+                            class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold text-white bg-teal-600 hover:bg-teal-500 rounded-xl transition-colors shadow-lg shadow-teal-900/40"
+                            title="Add New Certificate">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+                            Add New
                         </button>` : ''}
-                        ${isEditor ? `
-                        <button id="add-btn-${typeId}" class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-teal-600 hover:bg-teal-500 rounded-lg transition-colors">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>Add New
-                        </button>
-                        ` : ''}
                     </div>
                 </div>
                 ${detailDashboardHTML}
@@ -1009,15 +1131,30 @@
 
             // --- Event Listeners for this page ---
             if (isEditor) {
-                pageEl.querySelector(`#add-btn-${typeId}`).addEventListener('click', () => handleShowForm(type));
-                pageEl.querySelector(`#import-btn-${typeId}`).addEventListener('click', () => handleShowImportModal(type));
-                pageEl.querySelector(`#export-btn-${typeId}`).addEventListener('click', () => handleExportData(type, data));
+                const addBtn = pageEl.querySelector(`#add-btn-${typeId}`);
+                if (addBtn) addBtn.addEventListener('click', () => handleShowForm(type));
+                // Note: import/export buttons have been moved to Settings modal
             }
-            pageEl.querySelector(`#download-btn-${typeId}`).addEventListener('click', () => handleDownloadReport(type));
+
+            const downloadBtn = pageEl.querySelector(`#download-btn-${typeId}`);
+            if (downloadBtn) downloadBtn.addEventListener('click', () => handleDownloadReport(type));
+
+            if (isCivilDefence && isEditor) {
+                const bulkEmailBtn = pageEl.querySelector('#bulk-email-btn');
+                const bulkInformedBtn = pageEl.querySelector('#bulk-informed-btn');
+                const remindLaterBtn = pageEl.querySelector('#bulk-remind-later-btn');
+
+                if (bulkEmailBtn) bulkEmailBtn.addEventListener('click', handleBulkEmailCD);
+                if (bulkInformedBtn) bulkInformedBtn.addEventListener('click', handleBulkInformedCD);
+                if (remindLaterBtn) remindLaterBtn.addEventListener('click', () => {
+                    window.sessionStorage.setItem('hideBulkBanner', 'true');
+                    render();
+                });
+            }
 
             if (isAman) {
-                // Show modal with PDF/CSV options
-                pageEl.querySelector(`#financial-report-btn-${typeId}`).addEventListener('click', handleShowFinancialReportOptions);
+                const financialBtn = pageEl.querySelector(`#financial-report-btn-${typeId}`);
+                if (financialBtn) financialBtn.addEventListener('click', handleShowFinancialReportOptions);
             }
 
 
@@ -1158,60 +1295,46 @@
 
                 let updateStatusButton = '';
                 if (isCivilDefence && item.workflowStatus === 'Inspection Date' && item.inspectionDate && new Date(item.inspectionDate).setHours(0, 0, 0, 0) <= today) {
-                    updateStatusButton = `<button class="action-btn text-yellow-500 hover:text-yellow-700 animate-pulse" data-action="update-inspection" data-id="${item.id}" title="Update Inspection Status"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></button>`;
+                    updateStatusButton = `<button class="action-btn text-yellow-500 hover:text-yellow-700 animate-pulse" data-action="update-inspection" data-id="${item.id}" title="Update Inspection Status"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></button>`;
                 }
 
-                // UPDATED RENEWAL ICON
-                const renewalButton = isRenewable ? `
-                    <button class="action-btn text-green-500 hover:text-green-700" data-action="renew" data-id="${item.id}" data-type="${type}" title="Renew Certificate">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M3 2v6h6"/><path d="M21 12A9 9 0 0 0 6 5.3L3 8"/><path d="M21 22v-6h-6"/><path d="M3 12a9 9 0 0 0 15 6.7L21 16"/></svg>
-                    </button>
-                ` : '';
-
-                let workflowCell = `<td class="px-6 py-4 bg-gray-800/50"></td>`;
+                let workflowCell = `<td class="px-3 py-2.5 bg-gray-800/50"></td>`;
                 if (isCivilDefence || isAman) {
-                    const steps = isCivilDefence ? CD_WORKFLOW_STEPS : AMAN_WORKFLOW_STEPS;
                     const typeData = isCivilDefence ? 'Civil Defence' : 'Aman Certificate';
                     workflowCell = `
-                        <td class="px-6 py-4 whitespace-nowrap text-sm bg-gray-800/50">
-                            <div class="relative inline-block text-left">
-                                <div>
-                                    <button type="button" class="workflow-status-btn inline-flex justify-center w-full" data-id="${item.id}" aria-expanded="true" aria-haspopup="true" ${!isEditor ? 'disabled' : ''}>
-                                        ${generateWorkflowBadge(item.workflowStatus, item.inspectionDate, typeData)}
-                                    </button>
-                                </div>
-                                <div id="workflow-dropdown-${item.id}" class="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-gray-800 ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-20" role="menu" aria-orientation="vertical" tabindex="-1">
-                                    ${isEditor ? `
-                                    <div class="py-1" role="none">
-                                        ${steps.map(step => `<a href="#" class="workflow-option text-gray-200 block px-4 py-2 text-sm hover:bg-gray-600" role="menuitem" tabindex="-1" data-id="${item.id}" data-type="${typeData}" data-new-status="${step}">${step}</a>`).join('')}
-                                    </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                        </td>`;
+                    <td class="px-3 py-2.5 text-sm bg-gray-800/50">
+                        ${generateWorkflowBadge(item.workflowStatus, item.inspectionDate, typeData)}
+                    </td>`;
                 }
 
-                // NEW: View Details icon
-                const viewDetailsIcon = `<button class="action-btn text-blue-500 hover:text-blue-700" data-action="view-details" data-id="${item.id}" data-type="${type}" title="View Details"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>`;
+                // View Details icon
+                const viewDetailsIcon = `<button class="action-btn text-blue-500 hover:text-blue-700" data-action="view-details" data-id="${item.id}" data-type="${type}" title="View Details"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>`;
 
+                let emailButton = '';
+                if (isCivilDefence && isRenewable && item.workflowStatus === 'Renewal Pending') {
+                    emailButton = `<button class="action-btn text-blue-400 hover:text-blue-300" data-action="email-fire-team" data-id="${item.id}" data-type="${type}" title="Email Fire AMC Team"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg></button>`;
+                }
 
                 return `
                 <tr class="bg-gray-800/50 border-b border-gray-700 hover:bg-gray-700/70 transition-colors">
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-white">${item.propertyNumber || ''}</td>
-                    ${renderPhaseColumn ? `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${item.phase || ''}</td>` : ''}
-                    ${isCivilDefence ? `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${formatDate(item.issueDate)}</td>` : ''}
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${formatDate(item.expiryDate)}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${generateStatusBadge(validityStatus)}</td>
-                    ${isAman ? `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${item.deviceId || ''}</td>` : ''}
-                    ${isAman ? `<td class="px-6 py-4 whitespace-nowrap text-sm text-gray-300">${item.serialNumber || ''}</td>` : ''}
+                    <td class="px-3 py-2.5 text-sm font-medium text-white truncate max-w-0">${item.propertyNumber || ''}</td>
+                    ${renderPhaseColumn ? `<td class="px-3 py-2.5 text-sm text-gray-300 truncate max-w-0">${item.phase || ''}</td>` : ''}
+                    ${isCivilDefence ? `<td class="px-3 py-2.5 text-sm text-gray-300 whitespace-nowrap">${formatDate(item.issueDate)}</td>` : ''}
+                    <td class="px-3 py-2.5 text-sm text-gray-300 whitespace-nowrap">${formatDate(item.expiryDate)}</td>
+                    ${isCivilDefence ? `<td class="px-3 py-2.5 text-sm text-gray-300 whitespace-nowrap">${(item.amcOnly === 'on' || item.amcOnly === true) ? (formatDate(item.amcExpiryDate) || '<span class="text-gray-500 italic">Not set</span>') : '—'}</td>` : ''}
+                    <td class="px-3 py-2.5 text-sm text-gray-300">${generateStatusBadge(validityStatus)}</td>
+                    ${isAman ? `<td class="px-3 py-2.5 text-sm text-gray-300 truncate max-w-0">${item.deviceId || '—'}</td>` : ''}
+                    ${isAman ? `<td class="px-3 py-2.5 text-sm text-gray-300 truncate max-w-0">${item.serialNumber || '—'}</td>` : ''}
                     ${workflowCell}
-                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex items-center justify-end space-x-2">
-                        ${isEditor ? updateStatusButton : ''}
-                        ${isEditor ? renewalButton : ''} <!-- RENEWAL BUTTON (Admin Only) -->
-                        ${viewDetailsIcon} <!-- VIEW DETAILS BUTTON (Always visible) -->
-                        <button class="action-btn text-purple-400 hover:text-purple-300" data-action="history" data-id="${item.id}" title="View History"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
-                        ${isEditor ? `<button class="action-btn text-teal-400 hover:text-teal-300" data-action="edit" data-id="${item.id}" data-type="${type}" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg></button>` : ''}
-                        ${isEditor ? `<button class="action-btn text-red-500 hover:text-red-400" data-action="delete" data-id="${item.id}" data-type="${type}" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg></button>` : ''}
+                    <td class="px-3 py-2.5 text-sm font-medium">
+                        <div class="flex items-center justify-end gap-1">
+                            ${isEditor ? updateStatusButton : ''}
+                            ${isEditor ? emailButton : ''}
+                            ${viewDetailsIcon}
+                            <button class="action-btn text-purple-400 hover:text-purple-300" data-action="history" data-id="${item.id}" title="View History"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg></button>
+                            ${isEditor ? `<button class="action-btn text-teal-400 hover:text-teal-300" data-action="edit" data-id="${item.id}" data-type="${type}" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"></path><path d="m15 5 4 4"></path></svg></button>` : ''}
+                            ${isEditor ? `<button class="action-btn text-red-500 hover:text-red-400" data-action="delete" data-id="${item.id}" data-type="${type}" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" x2="10" y1="11" y2="17"></line><line x1="14" x2="14" y1="11" y2="17"></line></svg></button>` : ''}
+                        </div>
                     </td>
                 </tr>
                 `}).join('');
@@ -1250,10 +1373,12 @@
         }
 
         // --- Modals and Forms ---
-        function showModal(title, content, onOpen = null) {
+        function showModal(title, content, onOpen = null, sizeClass = 'max-w-lg') {
+            // Signal to hideModal (if it runs just before this) not to do a full render
+            window._suppressHideRender = true;
             const modalContainer = document.getElementById('modal-container');
             modalContainer.innerHTML = `
-                <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl w-full max-w-lg m-4 max-h-[90vh] flex flex-col">
+                <div class="bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl w-full ${sizeClass} m-4 max-h-[90vh] flex flex-col">
                     <div class="flex items-center justify-between p-5 border-b border-gray-700 flex-shrink-0">
                         <h3 class="text-xl font-bold text-white">${title}</h3>
                         <button id="modal-close-btn" class="text-gray-400 hover:text-white transition-colors">
@@ -1263,7 +1388,16 @@
                     <div class="p-6 overflow-y-auto">${content}</div>
                 </div>`;
             modalContainer.classList.remove('hidden');
-            document.getElementById('modal-close-btn').addEventListener('click', hideModal);
+            document.getElementById('modal-close-btn').addEventListener('click', () => {
+                if (window._wfFromHub) {
+                    window._wfFromHub = false;
+                    window._suppressHideRender = true; // Don't flash the page before hub opens
+                    hideModal();
+                    handleShowWorkflowHub(); // No setTimeout needed — direct call is seamless
+                } else {
+                    hideModal();
+                }
+            });
             if (onOpen) onOpen();
         }
 
@@ -1271,7 +1405,95 @@
             const modalContainer = document.getElementById('modal-container');
             modalContainer.innerHTML = '';
             modalContainer.classList.add('hidden');
+            // Only refresh the main page if we are NOT about to immediately open another modal
+            if (!window._suppressHideRender) {
+                render();
+                updateNotifications();
+            }
+            window._suppressHideRender = false;
         }
+        window.hideModal = hideModal;
+
+        function handleShowWorkflowHub() {
+            window._wfFromHub = false; // Ensure flag is clear when hub is shown
+            let activeCerts = [];
+            let headerText = '';
+            let iconSvg = '';
+
+            if (currentPage === 'Civil Defence') {
+                activeCerts = cdCerts.filter(c => c.workflowStatus !== 'Certificate ready' && (c.project || 'Main Project') === currentProject);
+                headerText = 'Civil Defence Active Workflows';
+                iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-400"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`;
+            } else {
+                activeCerts = amanCerts.filter(c => c.workflowStatus !== 'Certificate ready' && (c.project || 'Main Project') === currentProject);
+                headerText = 'Aman Active Workflows';
+                iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-400"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>`;
+            }
+
+            let contentHTML = `
+                <div class="flex items-center gap-3 mb-6 border-b border-gray-700 pb-4">
+                    <div class="p-3 bg-gray-800 rounded-xl border border-gray-700 shadow-inner">
+                        ${iconSvg}
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white tracking-tight">${headerText}</h3>
+                        <p class="text-sm text-gray-400 mt-1">Select a property to manage its renewal process and inspection status.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            `;
+            
+            if (activeCerts.length > 0) {
+                activeCerts.forEach(cert => {
+                    const isExp = getValidityStatus(cert.expiryDate).text === 'Expired';
+                    const expColor = isExp ? 'text-red-400' : 'text-gray-400';
+                    const expText = isExp ? 'Expired' : 'Expires';
+                    const borderColor = isExp ? 'border-red-500/30' : 'border-gray-700 hover:border-teal-500/50';
+
+                    contentHTML += `
+                    <div class="group bg-gray-800/80 backdrop-blur-sm border ${borderColor} p-5 rounded-2xl shadow-xl cursor-pointer hover:bg-gray-700/80 transition-all duration-300 hover:-translate-y-1" 
+                     onclick="window._suppressHideRender = true; hideModal(); handleShowWorkflowManager('${cert.id}', '${currentPage}', true);">
+
+                        
+                        <div class="flex justify-between items-start mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-900 border border-gray-600 flex items-center justify-center text-gray-300 font-bold shadow-inner group-hover:text-white group-hover:border-teal-500 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-lg tracking-wide">Prop ${cert.propertyNumber}</h4>
+                                    <span class="text-xs font-medium ${expColor} flex items-center gap-1 mt-0.5">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3 h-3"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        ${expText}: ${formatDate(cert.expiryDate)}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gray-900/80 border border-gray-700/50 rounded-xl px-3 py-2 flex items-center gap-3 mt-auto">
+                             <div class="w-2 h-2 rounded-full bg-teal-400 animate-pulse flex-shrink-0"></div>
+                             <span class="text-sm font-semibold text-teal-300 flex-1 truncate">${cert.workflowStatus || 'Not Started'}</span>
+                             <span class="text-xs text-gray-500 font-semibold">Tap to manage →</span>
+                        </div>
+                    </div>`;
+                });
+            } else {
+                contentHTML += `
+                <div class="col-span-full py-16 flex flex-col items-center justify-center bg-gray-800/30 border border-gray-700/50 rounded-2xl border-dashed">
+                    <div class="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mb-4 shadow-inner border border-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-500/50"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">All Clear!</h3>
+                    <p class="text-gray-400 text-center max-w-md">There are currently no active workflows or pending renewals for ${currentPage}.</p>
+                </div>`;
+            }
+            
+            contentHTML += `</div>`;
+            
+            showModal("Active Workflows Hub", contentHTML, () => {}, 'max-w-6xl');
+        }
+
+
 
         // --- FIX: Add/Edit Form Modal ---
         function handleShowForm(type, id = null) {
@@ -1352,113 +1574,78 @@
             `;
 
 
+            // Professional Form Layout
+            const inputCls = 'w-full bg-gray-900/80 border border-gray-600 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all';
+            const labelCls = 'block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1.5';
+            const selectCls = inputCls + ' cursor-pointer';
+            const sectionHeader = (title) => `<div class="col-span-2 flex items-center gap-3 mt-2"><span class="text-xs font-bold text-teal-400 uppercase tracking-widest">${title}</span><div class="flex-1 h-px bg-gray-700"></div></div>`;
+            const field = (label, html) => `<div><label class="${labelCls}">${label}</label>${html}</div>`;
+
             const commonFields = `
                 <input type="hidden" name="id" value="${formData.id || ''}">
                 <input type="hidden" name="project" value="${formData.project || currentProject}">
-                
-                <!-- AI OCR Section REMOVED -->
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="propertyNumber" class="block text-sm font-medium text-gray-300 mb-2">Property Number *</label>
-                        <input type="text" id="propertyNumber" name="propertyNumber" value="${formData.propertyNumber || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500" required>
+                <div class="grid grid-cols-2 gap-x-5 gap-y-4">
+                    ${sectionHeader('Basic Info')}
+                    ${field('Property Number <span class="text-red-400">*</span>', `<input type="text" id="propertyNumber" name="propertyNumber" value="${formData.propertyNumber || ''}" class="${inputCls}" placeholder="e.g. W-142" required>`)}
+                    ${field('Property Type', `<select id="propertyType" name="propertyType" class="${selectCls}">${Object.entries(propertyTypeOptions).map(([lbl, val]) => `<option value="${val}" ${normalizePropertyType(val) === normalizedCurrentType ? 'selected' : ''}>${lbl}</option>`).join('')}</select>`)}
+                    <div id="phase-field-container" class="${normalizedCurrentType === 'warehouse' ? '' : 'hidden'}">
+                        <label class="${labelCls}">Phase</label>
+                        <select id="phase" name="phase" class="${selectCls}">${['Phase 1','Phase 2','OPY','Other'].map(p => `<option value="${p}" ${formData.phase === p ? 'selected' : ''}>${p}</option>`).join('')}</select>
                     </div>
-                    ${isCivilDefence ? '' : cdDateFields} <!-- If not CD, display single expiry input here -->
-                </div>
-                
-                ${amanMenuHtml} <!-- Repositioned Aman Menu to be slightly above date inputs -->
-
-                ${isCivilDefence ? cdDateFields : ''} <!-- If CD, display dual date row here -->
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <!-- FIX 4: Phase Field container with visibility logic. Initial check uses the normalized property type. -->
-                    <div id="phase-field-container" class="${(normalizedCurrentType === 'warehouse') ? '' : 'hidden'}">
-                        <label for="phase" class="block text-sm font-medium text-gray-300 mb-2">Phase</label>
-                        <!-- FIX 2: Removed disabledProp -->
-                        <select id="phase" name="phase" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                            ${['Phase 1', 'Phase 2', 'OPY', 'Other'].map(p => `<option value="${p}" ${formData.phase === p ? 'selected' : ''}>${p}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label for="propertyType" class="block text-sm font-medium text-gray-300 mb-2">Property Type</label>
-                        <!-- FIX 2: Removed disabledProp -->
-                        <select id="propertyType" name="propertyType" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                            ${Object.keys(propertyTypeOptions).map(display => {
-                const storedValue = propertyTypeOptions[display];
-
-                // FIX: Use the general rule to check if this option corresponds to the item's normalized type.
-                const isSelected = normalizePropertyType(storedValue) === normalizedCurrentType;
-
-                return `<option value="${storedValue}" ${isSelected ? 'selected' : ''}>${display}</option>`;
-            }).join('')}
-                        </select>
-                    </div>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label for="modalWorkflowStatus" class="block text-sm font-medium text-gray-300 mb-2">Workflow Status</label>
-                        <select id="modalWorkflowStatus" name="workflowStatus" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                            ${workflowSteps.map(step => `<option value="${step}" ${formData.workflowStatus === step ? 'selected' : ''}>${step}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div id="inspection-date-container" class="${(isCivilDefence && formData.workflowStatus === 'Inspection Date') ? '' : 'hidden'}">
-                        <label for="inspectionDate" class="block text-sm font-medium text-gray-300 mb-2">Inspection Date</label>
-                        <input type="date" id="inspectionDate" name="inspectionDate" value="${formData.inspectionDate || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                    </div>
-                    
+                    ${field('Workflow Status', `<select id="modalWorkflowStatus" name="workflowStatus" class="${selectCls}">${(isCivilDefence ? CD_WORKFLOW_STEPS : AMAN_WORKFLOW_STEPS).map(s => `<option value="${s}" ${formData.workflowStatus === s ? 'selected' : ''}>${s}</option>`).join('')}</select>`)}
+                    ${sectionHeader('Certificate Dates')}
+                    ${isCivilDefence ? field('Issue Date', `<input type="date" id="issueDate" name="issueDate" value="${formData.issueDate || ''}" class="${inputCls}">`) : ''}
+                    ${field('Expiry Date', `<input type="date" id="expiryDate" name="expiryDate" value="${formData.expiryDate || ''}" class="${inputCls}">`)}
                     ${isCivilDefence ? `
-                    <div class="flex items-center pt-8">
-                        <input type="checkbox" id="amcOnly" name="amcOnly" class="h-4 w-4 text-teal-600 border-gray-600 rounded bg-gray-900 focus:ring-teal-500" ${formData.amcOnly === 'on' || formData.amcOnly === true ? 'checked' : ''}>
-                        <label for="amcOnly" class="ml-2 block text-sm font-medium text-gray-300">AMC Only (No Expiry)</label>
-                    </div>
-                    ` : ''}
-
+                        <div class="col-span-2 flex flex-col gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700">
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="amcOnly" name="amcOnly" class="h-4 w-4 rounded border-gray-600 bg-gray-900 text-teal-600 focus:ring-teal-500" ${formData.amcOnly === 'on' || formData.amcOnly === true ? 'checked' : ''}>
+                                <label for="amcOnly" class="text-sm font-semibold text-gray-300 cursor-pointer">AMC Only (No Regular Expiry)</label>
+                            </div>
+                            <div id="amc-expiry-container" class="${formData.amcOnly === 'on' || formData.amcOnly === true ? '' : 'hidden'} pl-6">
+                                ${field('AMC Expiry Date', `<input type="date" id="amcExpiryDate" name="amcExpiryDate" value="${formData.amcExpiryDate || ''}" class="${inputCls}">`)}
+                            </div>
+                        </div>` : ''}
                     ${isAman ? `
-                    <div>
-                        <label for="accountId" class="block text-sm font-medium text-gray-300 mb-2">Account ID</label>
-                        <input type="text" id="accountId" name="accountId" value="${formData.accountId || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                    </div>
-                    <div>
-                        <label for="recordId" class="block text-sm font-medium text-gray-300 mb-2">Record ID</label>
-                        <input type="text" id="recordId" name="recordId" value="${formData.recordId || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                    </div>
-                    <div>
-                        <label for="deviceId" class="block text-sm font-medium text-gray-300 mb-2">Device ID</label>
-                        <input type="text" id="deviceId" name="deviceId" value="${formData.deviceId || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                    </div>
-                    <div>
-                        <label for="serialNumber" class="block text-sm font-medium text-gray-300 mb-2">Serial Number</label>
-                        <input type="text" id="serialNumber" name="serialNumber" value="${formData.serialNumber || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                    </div>
+                        ${sectionHeader('Aman Device IDs')}
+                        ${field('Account ID',  `<input type="text" id="accountId"  name="accountId"  value="${formData.accountId  || ''}" class="${inputCls}" placeholder="Account ID">`)}
+                        ${field('Record ID',   `<input type="text" id="recordId"   name="recordId"   value="${formData.recordId   || ''}" class="${inputCls}" placeholder="Record ID">`)}
+                        ${field('Device ID',   `<input type="text" id="deviceId"   name="deviceId"   value="${formData.deviceId   || ''}" class="${inputCls}" placeholder="Device ID">`)}
+                        ${field('Serial No.',  `<input type="text" id="serialNumber" name="serialNumber" value="${formData.serialNumber || ''}" class="${inputCls}" placeholder="Serial Number">`)}
                     ` : ''}
+                    ${sectionHeader('Notes')}
+                    <div class="col-span-2"><textarea id="notes" name="notes" rows="2" class="${inputCls} resize-none" placeholder="Optional notes...">${formData.notes || ''}</textarea></div>
                 </div>
-
-                <div class="col-span-full">
-                    <label for="certificateLink" class="block text-sm font-medium text-gray-300 mb-2">Certificate PDF Link / Storage Path</label>
-                    <input type="url" id="certificateLink" name="certificateLink" value="${formData.certificateLink || ''}" placeholder="e.g., https://docs.google.com/..." class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
-                </div>
-
-                <div>
-                    <label for="notes" class="block text-sm font-medium text-gray-300 mb-2">Notes</label>
-                    <textarea id="notes" name="notes" rows="3" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">${formData.notes || ''}</textarea>
-                </div>
-                
-                
-                <div class="flex justify-end gap-4 pt-4">
-                    <button type="button" id="form-cancel-btn" class="px-6 py-2 rounded-lg bg-gray-600 text-white hover:bg-gray-500 transition-colors font-semibold">Cancel</button>
-                    <button type="submit" class="px-6 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-500 transition-colors font-semibold">${isEdit ? 'Update Certificate' : 'Add Certificate'}</button>
+                ${isAman && isEdit ? amanMenuHtml : ''}
+                <div class="flex justify-end gap-3 pt-4 border-t border-gray-700/60 mt-2">
+                    <button type="button" id="form-cancel-btn" class="px-5 py-2 rounded-lg text-sm font-semibold bg-gray-700 text-gray-200 hover:bg-gray-600 transition-colors">Cancel</button>
+                    <button type="submit" class="px-6 py-2 rounded-lg text-sm font-bold text-white bg-teal-600 hover:bg-teal-500 transition-colors shadow-lg shadow-teal-900/40">${isEdit ? 'Update Certificate' : 'Add Certificate'}</button>
                 </div>
             `;
 
-            const formContent = `<form id="cert-form-${type.replace(/\s/g, '-')}" class="space-y-4 relative" data-id="${id || ''}" data-type="${type}">${commonFields}</form>`;
+            const formContent = `<form id="cert-form-${type.replace(/\s/g, '-')}" class="relative" data-id="${id || ''}" data-type="${type}">${commonFields}</form>`;
 
             showModal(`${isEdit ? 'Edit' : 'Add New'} ${type}`, formContent, () => {
                 const formEl = document.getElementById(`cert-form-${type.replace(/\s/g, '-')}`);
                 const propertyTypeSelect = document.getElementById('propertyType');
                 const phaseFieldContainer = document.getElementById('phase-field-container');
                 const phaseSelect = document.getElementById('phase');
+                const amcOnlyCheckbox = document.getElementById('amcOnly');
+                const amcExpiryContainer = document.getElementById('amc-expiry-container');
 
+
+                // Toggle AMC Expiry field based on checkbox
+                if (amcOnlyCheckbox && amcExpiryContainer) {
+                    amcOnlyCheckbox.addEventListener('change', (e) => {
+                        if (e.target.checked) {
+                            amcExpiryContainer.classList.remove('hidden');
+                        } else {
+                            amcExpiryContainer.classList.add('hidden');
+                            // Clear value when unchecked
+                            document.getElementById('amcExpiryDate').value = '';
+                        }
+                    });
+                }
 
                 // FIX 4: Added event listener to propertyType to toggle Phase visibility
                 if (propertyTypeSelect) {
@@ -1518,7 +1705,59 @@
                         }
                     });
                 }
-            });
+
+                // File Upload Logic (Local OneDrive)
+                const uploadBtn = document.getElementById('upload-cert-btn');
+                const uploadStatus = document.getElementById('upload-status');
+                const linkInput = document.getElementById('certificateLink');
+                const fileInput = document.getElementById('certificateFile');
+
+                if (uploadBtn && fileInput) {
+                    uploadBtn.addEventListener('click', async () => {
+                        if (!oneDriveFolderHandle) {
+                            showModal("Access Required", "<p class='text-red-400'>Please click 'Link OneDrive' or 'Grant Access' in the sidebar first to link your local certificate folder.</p>");
+                            return;
+                        }
+                        fileInput.click();
+                    });
+
+                    fileInput.addEventListener('change', async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+
+                        uploadStatus.textContent = 'Saving to OneDrive...';
+                        uploadStatus.classList.remove('hidden', 'text-green-400', 'text-red-400');
+                        uploadStatus.classList.add('text-teal-400');
+                        uploadBtn.disabled = true;
+
+                        try {
+                            if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
+                            }
+
+                            const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                            const fileName = `${Date.now()}_${safeName}`;
+                            const fileHandle = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(file);
+                            await writable.close();
+
+                            linkInput.value = fileName;
+
+                            uploadStatus.textContent = 'Saved to folder!';
+                            uploadStatus.classList.remove('text-teal-400', 'text-red-400');
+                            uploadStatus.classList.add('text-green-400');
+                            uploadBtn.disabled = false;
+                        } catch (err) {
+                            console.error(err);
+                            uploadStatus.textContent = 'Save failed!';
+                            uploadStatus.classList.remove('text-teal-400', 'text-green-400');
+                            uploadStatus.classList.add('text-red-400');
+                            uploadBtn.disabled = false;
+                        }
+                    });
+                }
+            }, 'max-w-2xl');
         }
 
         // --- FIX: History Modal (Expiry/Link History) ---
@@ -1533,15 +1772,23 @@
 
             const historyItemsHtml = sortedHistory.length > 0 ? sortedHistory.map((item, index) => {
                 const timestamp = new Date(item.archivedAt).toLocaleString('en-GB');
-                const linkHtml = item.certificateLink ? `
-                    <a href="${item.certificateLink}" target="_blank" rel="noopener noreferrer" class="text-xs text-teal-400 hover:text-teal-300 underline flex items-center gap-1 mt-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                        View Archived Link
-                    </a>` : `<p class="text-xs text-gray-500 mt-2">No archived link recorded.</p>`;
+                const isLocalFile = item.certificateLink && !item.certificateLink.startsWith('http');
+                const linkHtml = item.certificateLink ? (isLocalFile ? `
+                        <button onclick="window.openLocalFile('${item.certificateLink}')" class="text-xs text-teal-400 hover:text-teal-300 underline flex items-center gap-1 mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            View Local Archived File
+                        </button>` : `
+                        <a href="${item.certificateLink}" target="_blank" rel="noopener noreferrer" class="text-xs text-teal-400 hover:text-teal-300 underline flex items-center gap-1 mt-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            View Archived Link
+                        </a>`) : `<p class="text-xs text-gray-500 mt-2">No archived link recorded.</p>`;
+
+                const amcExpiryHtml = item.amcExpiryDate ? `<p class="text-sm font-bold text-white mb-2">Archived AMC Expiry: <span class="text-yellow-400">${formatDate(item.amcExpiryDate)}</span></p>` : '';
 
                 return `
                     <div class="p-4 rounded-lg border border-gray-700 ${index === 0 ? 'bg-gray-700/50' : 'bg-gray-800/50'}">
                         <p class="text-sm font-bold text-white mb-2">Archived Expiry: <span class="text-red-400">${formatDate(item.expiryDate)}</span></p>
+                        ${amcExpiryHtml}
                         <p class="text-xs text-gray-400">Date Logged: ${timestamp}</p>
                         ${linkHtml}
                         <div class="mt-2 pt-2 border-t border-gray-600">
@@ -1796,6 +2043,9 @@
             if (isCivilDefence) {
                 detailsMap.splice(5, 0, { label: 'Issue Date', value: formatDate(cert.issueDate) });
                 detailsMap.push({ label: 'AMC Only', value: cert.amcOnly === 'on' || cert.amcOnly === true ? 'Yes' : 'No' });
+                if (cert.amcOnly === 'on' || cert.amcOnly === true) {
+                    detailsMap.push({ label: 'AMC Expiry Date', value: formatDate(cert.amcExpiryDate) || 'Not Set' });
+                }
             }
             if (isAman) {
                 detailsMap.push({ label: 'Account ID', value: cert.accountId || 'N/A' });
@@ -1835,16 +2085,23 @@
             ` : '';
 
 
+            const isLocalFile = cert.certificateLink && !cert.certificateLink.startsWith('http');
             const certificateButton = cert.certificateLink ? `
                 <div class="md:col-span-2 mt-6">
                     <h4 class="text-lg font-bold text-teal-400 mb-3">Linked Document</h4>
-                    <a href="${cert.certificateLink}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-lg bg-teal-600 hover:bg-teal-500 transition-colors text-white font-bold shadow-lg">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="10" y1="13" x2="14" y2="13"></line><line x1="10" y1="17" x2="14" y2="17"></line><line x1="10" y1="9" x2="10" y2="9"></line></svg>
-                        View Certificate PDF
-                    </a>
-                    <p class="text-xs text-gray-400 mt-2 text-center">Clicking the button opens the PDF link you provided in a new tab.</p>
+                    ${isLocalFile ?
+                    `<button onclick="window.openLocalFile('${cert.certificateLink}')" class="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-lg bg-teal-600 hover:bg-teal-500 transition-colors text-white font-bold shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="10" y1="13" x2="14" y2="13"></line><line x1="10" y1="17" x2="14" y2="17"></line><line x1="10" y1="9" x2="10" y2="9"></line></svg>
+                            View Local Document
+                        </button>`
+                    :
+                    `<a href="${cert.certificateLink}" target="_blank" rel="noopener noreferrer" class="w-full inline-flex items-center justify-center gap-3 px-6 py-3 rounded-lg bg-teal-600 hover:bg-teal-500 transition-colors text-white font-bold shadow-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="10" y1="13" x2="14" y2="13"></line><line x1="10" y1="17" x2="14" y2="17"></line><line x1="10" y1="9" x2="10" y2="9"></line></svg>
+                            View Cloud Document
+                        </a>`
+                }
                 </div>
-            ` : `<p class="md:col-span-2 mt-4 text-center text-yellow-400">No certificate PDF link provided for this entry.</p>`;
+            ` : `<p class="md:col-span-2 mt-4 text-center text-yellow-400">No document linked.</p>`;
 
             const modalContent = `
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1890,6 +2147,13 @@
                 </div>
             ` : '';
 
+            const amcExpiryInput = (isCivilDefence && (cert.amcOnly === 'on' || cert.amcOnly === true)) ? `
+                <div class="pt-4">
+                    <label for="newAmcExpiryDate" class="block text-sm font-medium text-gray-300 mb-2">New AMC Expiry Date</label>
+                    <input type="date" id="newAmcExpiryDate" name="newAmcExpiryDate" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                </div>
+            ` : '';
+
 
             const modalContent = `
                 <form id="renewal-form" data-id="${id}" data-type="${type}" class="space-y-6">
@@ -1898,10 +2162,28 @@
                     <h3 class="text-lg font-bold text-white mb-4 border-b border-gray-700 pb-2">New Certificate Details</h3>
                     <div class="grid grid-cols-1 gap-4">
                         <div>
-                            <label for="newExpiryDate" class="block text-sm font-medium text-gray-300 mb-2">New Expiry Date</label>
-                            <input type="date" id="newExpiryDate" name="newExpiryDate" required class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white">
+                            <label for="newExpiryDate" class="block text-sm font-medium text-gray-300 mb-2">New Regular Expiry Date</label>
+                            <input type="date" id="newExpiryDate" name="newExpiryDate" ${!(cert.amcOnly === 'on' || cert.amcOnly === true) ? 'required' : ''} class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white">
                         </div>
                         ${cdIssueDateInput}
+                        ${amcExpiryInput}
+                    </div>
+
+                    <div class="col-span-full pt-4">
+                        <label class="block text-sm font-medium text-gray-300 mb-2">New Certificate Document (Optional)</label>
+                        <div class="flex gap-4 items-start">
+                            <div class="flex-1">
+                                <input type="text" id="renewCertificateLink" name="renewCertificateLink" placeholder="Paste link or upload new certificate" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500 mb-2">
+                            </div>
+                            <div class="flex-shrink-0 flex flex-col items-end">
+                                <input type="file" id="renewCertificateFile" class="hidden" accept=".pdf,image/*">
+                                <button type="button" id="renew-upload-btn" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg text-sm font-semibold transition-colors flex items-center gap-2 border border-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                    Upload
+                                </button>
+                                <span id="renew-upload-status" class="text-xs text-gray-400 mt-2 hidden"></span>
+                            </div>
+                        </div>
                     </div>
                     
                     ${renewalFieldsHtml}
@@ -1916,6 +2198,58 @@
             showModal(`Renew ${type} Certificate`, modalContent, () => {
                 document.getElementById('renewal-form').addEventListener('submit', handleProcessRenewal);
                 document.getElementById('renewal-cancel-btn').addEventListener('click', hideModal);
+
+                // File Upload Logic for Renewal (Local OneDrive)
+                const uploadBtn = document.getElementById('renew-upload-btn');
+                const uploadStatus = document.getElementById('renew-upload-status');
+                const linkInput = document.getElementById('renewCertificateLink');
+                const fileInput = document.getElementById('renewCertificateFile');
+
+                if (uploadBtn && fileInput) {
+                    uploadBtn.addEventListener('click', async () => {
+                        if (!oneDriveFolderHandle) {
+                            showModal("Access Required", "<p class='text-red-400'>Please click 'Link OneDrive' or 'Grant Access' in the sidebar first to link your local certificate folder.</p>");
+                            return;
+                        }
+                        fileInput.click();
+                    });
+
+                    fileInput.addEventListener('change', async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+
+                        uploadStatus.textContent = 'Saving to OneDrive...';
+                        uploadStatus.classList.remove('hidden', 'text-green-400', 'text-red-400');
+                        uploadStatus.classList.add('text-teal-400');
+                        uploadBtn.disabled = true;
+
+                        try {
+                            if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
+                            }
+
+                            const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                            const fileName = `${Date.now()}_${safeName}`;
+                            const fileHandle = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(file);
+                            await writable.close();
+
+                            linkInput.value = fileName;
+
+                            uploadStatus.textContent = 'Saved to folder!';
+                            uploadStatus.classList.remove('text-teal-400', 'text-red-400');
+                            uploadStatus.classList.add('text-green-400');
+                            uploadBtn.disabled = false;
+                        } catch (err) {
+                            console.error(err);
+                            uploadStatus.textContent = 'Save failed!';
+                            uploadStatus.classList.remove('text-teal-400', 'text-green-400');
+                            uploadStatus.classList.add('text-red-400');
+                            uploadBtn.disabled = false;
+                        }
+                    });
+                }
             });
         }
 
@@ -1930,12 +2264,13 @@
             if (certIndex === -1) return;
 
             const newExpiryDate = document.getElementById('newExpiryDate').value;
-            if (!newExpiryDate) {
+            const cert = dataArray[certIndex];
+            const isAmcOnly = cert.amcOnly === 'on' || cert.amcOnly === true;
+
+            if (!newExpiryDate && !isAmcOnly) {
                 showModal("Validation Error", "<p class='text-red-400'>New Expiry Date is mandatory.</p>");
                 return;
             }
-
-            const cert = dataArray[certIndex];
 
             // 1. Log Old Expiry/Link to HistoryData before renewal
             if (!historyData[id]) historyData[id] = [];
@@ -1945,21 +2280,32 @@
                 // Keep only relevant historical fields to save space
                 // FIX: Ensure no undefined values for Firebase set()
                 expiryDate: cert.expiryDate || '',
+                amcExpiryDate: cert.amcExpiryDate || '',
                 certificateLink: cert.certificateLink || ''
             });
 
 
             // 2. Update Main Certificate Data
-            cert.expiryDate = newExpiryDate;
+            if (newExpiryDate) cert.expiryDate = newExpiryDate;
             cert.workflowStatus = 'Certificate ready';
             cert.inspectionDate = ''; // Clear inspection date if renewal
 
-            // 2b. Handle Civil Defence Issue Date update
+            // 2b. Handle Civil Defence Issue Date and AMC Expiry update
             if (type === 'Civil Defence') {
-                const newIssueDate = document.getElementById('newIssueDate').value;
+                const newIssueDate = document.getElementById('newIssueDate')?.value;
                 if (newIssueDate) {
                     cert.issueDate = newIssueDate;
                 }
+                const newAmcExpiryDate = document.getElementById('newAmcExpiryDate')?.value;
+                if (newAmcExpiryDate) {
+                    cert.amcExpiryDate = newAmcExpiryDate;
+                }
+            }
+
+            // 2c. Update Certificate Link if a new one was uploaded/pasted
+            const newLink = document.getElementById('renewCertificateLink').value;
+            if (newLink) {
+                cert.certificateLink = newLink;
             }
 
             // 3. Handle Aman Financial History
@@ -2020,67 +2366,114 @@
         function handleExportFinancialDataCSV(type, data) {
             if (type !== 'Aman Certificate') return;
 
-            const filteredData = data.filter(item => (item.project || 'Main Project') === currentProject);
+            const filteredData = data
+                .filter(item => (item.project || 'Main Project') === currentProject)
+                .sort((a, b) => String(a.propertyNumber).localeCompare(String(b.propertyNumber), undefined, { numeric: true, sensitivity: 'base' }));
 
             if (filteredData.length === 0) {
                 showModal("Export Failed", "<p class='text-yellow-400'>No data to export based on the current filters.</p>");
                 return;
             }
 
-            // 1. Determine Max Renewals for dynamic header generation
+            // --- Group by section (matching PDF layout) ---
+            const sectionMap = { Warehouse: 'warehouse', OPY: 'opy', Admin: 'admin', Others: 'others' };
+            const grouped = filteredData.reduce((acc, item) => {
+                let t = (item.propertyType || '').toLowerCase().replace(/\s/g, '');
+                if (t.includes('openyard')) t = 'opy';
+                if (t.includes('adminbuilding')) t = 'admin';
+                if (t === 'warehouse' || t === 'warehouses') t = 'warehouse';
+                const key = Object.keys(sectionMap).find(k => sectionMap[k] === t) || 'Others';
+                if (!acc[key]) acc[key] = [];
+                acc[key].push(item);
+                return acc;
+            }, {});
+
+            // --- Determine max renewals across ALL data ---
             const maxRenewals = filteredData.reduce((max, item) => {
-                const renewals = (item.renewalHistory || []).filter(r => r.type === 'Renewal').length;
-                return Math.max(max, renewals);
+                const rCount = (item.renewalHistory || []).filter(r => r.type === 'Renewal').length;
+                return Math.max(max, rCount);
             }, 0);
 
-            // 2. Build Header
-            const fixedHeaders = ['Property Number', 'Expiry Date', 'Account ID', 'Install Date', 'Install Cost (AED)'];
-            const dynamicHeaders = [];
-            for (let i = 1; i <= maxRenewals; i++) {
-                dynamicHeaders.push(`R${i} Date`, `R${i} Cost (AED)`);
-            }
-            const headers = [...fixedHeaders, ...dynamicHeaders, 'Total Install Cost', 'Total Renewal Cost', 'Total Lifetime Cost'];
+            // --- Build Header row ---
+            const dynHeaders = [];
+            for (let i = 1; i <= maxRenewals; i++) dynHeaders.push(`R${i} Date`, `R${i} Cost (AED)`);
+            const headers = ['Property No.', 'Expiry Date', 'Account ID', 'Install Date', 'Install Cost (AED)', ...dynHeaders, 'Total Install (AED)', 'Total Renewal (AED)', 'Total Lifetime (AED)'];
 
-            let csvContent = headers.map(h => `"${h.replace(/"/g, '""')}"`).join(',') + '\n';
+            const esc = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
+            const rows = [];
 
-            // 3. Build Body
-            filteredData.forEach(item => {
-                const history = item.renewalHistory || [];
-                const installRecord = history.find(r => r.type === 'Installation') || {};
-                const renewalRecords = history.filter(r => r.type === 'Renewal').sort((a, b) => new Date(a.date) - new Date(b.date));
-                const costs = calculateAmanCosts(item);
+            // --- Title row ---
+            rows.push([esc(`Aman Certificate Financial Report - ${currentProject}`)]);
+            rows.push([esc(`Generated: ${new Date().toLocaleDateString('en-GB')}`)]);
+            rows.push(['']); // blank spacer
 
-                const rowData = [];
+            // Grand totals accumulators
+            let grandInstall = 0, grandRenewal = 0;
 
-                // Fixed Columns
-                rowData.push(item.propertyNumber || '');
-                rowData.push(item.expiryDate ? formatDate(item.expiryDate) : 'N/A');
-                rowData.push(item.accountId || 'N/A');
-                rowData.push(installRecord.date ? formatDate(installRecord.date) : 'N/A');
-                rowData.push(installRecord.cost !== undefined ? parseFloat(installRecord.cost).toFixed(2) : '0.00');
+            const sectionOrder = ['Warehouse', 'OPY', 'Admin', 'Others'];
+            sectionOrder.forEach(section => {
+                const sData = grouped[section] || [];
+                if (sData.length === 0) return;
 
-                // Dynamic Renewal Columns
-                for (let i = 1; i <= maxRenewals; i++) {
-                    const renewal = renewalRecords[i - 1];
-                    if (renewal) {
-                        rowData.push(formatDate(renewal.date));
-                        rowData.push(parseFloat(renewal.cost).toFixed(2));
-                    } else {
-                        rowData.push('', ''); // Empty slots to match maxRenewals columns
+                // Section header
+                rows.push([esc(`=== ${section} ===`)]);
+                rows.push(headers.map(esc).join(','));
+
+                let secInstall = 0, secRenewal = 0;
+
+                sData.forEach(item => {
+                    const history = item.renewalHistory || [];
+                    const inst = history.find(r => r.type === 'Installation') || {};
+                    const renewals = history.filter(r => r.type === 'Renewal').sort((a, b) => new Date(a.date) - new Date(b.date));
+                    const costs = calculateAmanCosts(item);
+
+                    const installCost = parseFloat(inst.cost) || 0;
+                    const renewCost = costs.totalRenewal;
+                    secInstall += installCost;
+                    secRenewal += renewCost;
+
+                    const rowData = [
+                        item.propertyNumber || '',
+                        item.expiryDate ? formatDate(item.expiryDate) : 'N/A',
+                        item.accountId || 'N/A',
+                        inst.date ? formatDate(inst.date) : 'N/A',
+                        installCost.toFixed(2)
+                    ];
+                    for (let i = 1; i <= maxRenewals; i++) {
+                        const r = renewals[i - 1];
+                        rowData.push(r ? formatDate(r.date) : '', r ? parseFloat(r.cost).toFixed(2) : '');
                     }
-                }
+                    rowData.push(costs.totalInstallation.toFixed(2), renewCost.toFixed(2), costs.totalLifetime.toFixed(2));
+                    rows.push(rowData.map(esc).join(','));
+                });
 
-                // Summary Columns
-                rowData.push(costs.totalInstallation.toFixed(2));
-                rowData.push(costs.totalRenewal.toFixed(2));
-                rowData.push(costs.totalLifetime.toFixed(2));
+                // Section subtotal row
+                const subtotalPad = Array(5 + maxRenewals * 2).fill(esc(''));
+                const subtotalLabel = `${section} Subtotal`;
+                const lifetime = secInstall + secRenewal;
+                rows.push([
+                    esc(subtotalLabel),
+                    ...subtotalPad.slice(1),
+                    esc(secInstall.toFixed(2)),
+                    esc(secRenewal.toFixed(2)),
+                    esc(lifetime.toFixed(2))
+                ].join(','));
+                rows.push(['']); // blank spacer between sections
 
-                csvContent += rowData.map(d => `"${String(d).replace(/"/g, '""')}"`).join(',') + '\n';
+                grandInstall += secInstall;
+                grandRenewal += secRenewal;
             });
 
-            // 4. Download CSV
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const link = document.createElement("a");
+            // --- Grand summary row ---
+            rows.push(['']); // spacer
+            rows.push([esc('GRAND TOTAL SUMMARY')]);
+            const summaryHeaders = ['Total Installation Cost (AED)', 'Total Renewal Cost (AED)', 'Total Lifetime Cost (AED)'];
+            rows.push(summaryHeaders.map(esc).join(','));
+            rows.push([esc(grandInstall.toFixed(2)), esc(grandRenewal.toFixed(2)), esc((grandInstall + grandRenewal).toFixed(2))].join(','));
+
+            // --- Download ---
+            const blob = new Blob([rows.map(r => Array.isArray(r) ? r.join(',') : r).join('\n')], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = `Aman_Financial_Report_${new Date().toISOString().split('T')[0]}.csv`;
             link.click();
@@ -2382,7 +2775,7 @@
                     let body = [];
 
                     if (isCivilDefence) {
-                        head = ['Property', 'Issue Date', 'Expiry', 'Status', 'Workflow'];
+                        head = ['Property', 'Issue Date', 'Expiry', 'AMC Expiry', 'Status', 'Workflow'];
                         body = subData.map(c => {
                             let workflowText = c.workflowStatus || 'N/A';
                             if (c.workflowStatus === 'Inspection Date' && c.inspectionDate) {
@@ -2392,6 +2785,7 @@
                                 c.propertyNumber,
                                 formatDate(c.issueDate),
                                 formatDate(c.expiryDate),
+                                (c.amcOnly === 'on' || c.amcOnly === true) ? (formatDate(c.amcExpiryDate) || 'Not set') : '—',
                                 getValidityStatus(c.expiryDate).text,
                                 workflowText
                             ];
@@ -2591,6 +2985,7 @@
             const formData = new FormData(form);
 
             let data = Object.fromEntries(formData.entries());
+            data.amcOnly = formData.get('amcOnly') === 'on';
 
             handleOperation(type, id ? 'update' : 'add', id, data);
         }
@@ -2660,10 +3055,10 @@
                     if (data.workflowStatus) {
                         newCert.workflowStatus = data.workflowStatus;
                     } else {
-                        newCert.workflowStatus = data.amcOnly === 'on' ? 'AMC ready' : 'Renewal Pending';
+                        newCert.workflowStatus = data.amcOnly ? 'AMC ready' : 'Renewal Pending';
                     }
 
-                    if (data.amcOnly === 'on') {
+                    if (data.amcOnly) {
                         newCert.issueDate = '';
                         newCert.expiryDate = '';
                     }
@@ -2704,13 +3099,13 @@
                     // FIX 4: Since phase and propertyType are now editable, we don't force them back from originalCert.
                     let updatedCert = { ...originalCert, ...data, propertyNumber, lastUpdated: new Date().toISOString() };
 
-                    if (data.isRenewal === 'true') {
+                    if (data.isRenewal === 'true' || updatedCert.workflowStatus === 'Certificate ready') {
                         updatedCert.workflowStatus = 'Certificate ready';
                         updatedCert.inspectionDate = '';
-                        updatedCert.amcOnly = false; // A renewal implies it's not AMC only
+                        updatedCert.amcOnly = false; // A renewal or ready status implies it's not AMC only
                     }
 
-                    if (type === 'Civil Defence' && data.amcOnly === 'on') {
+                    if (type === 'Civil Defence' && data.amcOnly === true && updatedCert.workflowStatus !== 'Certificate ready') {
                         updatedCert.workflowStatus = 'AMC ready';
                         updatedCert.issueDate = '';
                         updatedCert.expiryDate = '';
@@ -2745,6 +3140,791 @@
         }
 
 
+        function handleEmailFireTeam(cert) {
+            const body = `Hello Team,\n\nPlease note that the Civil Defence certificate for Property Number ${cert.propertyNumber} has expired on ${formatDate(cert.expiryDate)}.\n\nPlease initiate the renewal process, and reply with the application details and inspection schedule once you receive a date.\n\nThank you.`;
+            const subject = `Urgent: Renewal Required for Property ${cert.propertyNumber}`;
+            const toEmail = window.localStorage.getItem('fireAmcEmail') || 'fireamc@example.com';
+            
+            const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function handleBulkEmailCD() {
+            const expired = cdCerts.filter(c => getValidityStatus(c.expiryDate).text === 'Expired' && c.workflowStatus === 'Renewal Pending');
+            if (expired.length === 0) return;
+
+            let propList = expired.map(c => `- Property ${c.propertyNumber} (Expired: ${formatDate(c.expiryDate)})`).join('\n');
+            const body = `Hello Team,\n\nPlease note that the following Civil Defence certificates have expired:\n\n${propList}\n\nPlease initiate the renewal process for these properties, and reply with the application details and inspection schedules once you receive the dates.\n\nThank you.`;
+            const subject = `Urgent: Bulk Renewal Required for ${expired.length} Properties`;
+            const toEmail = window.localStorage.getItem('fireAmcEmail') || 'fireamc@example.com';
+            
+            const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            expired.forEach(c => c.workflowStatus = 'Informed Fire team');
+            saveDataToFirebase();
+            render();
+            showToast("Bulk email generated and statuses updated to 'Informed Fire team'.");
+        }
+
+        function handleBulkInformedCD() {
+            const expired = cdCerts.filter(c => getValidityStatus(c.expiryDate).text === 'Expired' && c.workflowStatus === 'Renewal Pending');
+            expired.forEach(c => c.workflowStatus = 'Informed Fire team');
+            saveDataToFirebase();
+            render();
+            showToast(`Updated ${expired.length} certificates to 'Informed Fire team'.`);
+        }
+
+        function handleShowSettingsModal() {
+            const currentCDEmail = window.localStorage.getItem('fireAmcEmail') || '';
+            const currentAmanEmail = window.localStorage.getItem('amanAmcEmail') || '';
+            const isEditor = isAuthorizedEditor();
+            const modalContent = `
+                <div class="space-y-6">
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">📧 Email Configuration</h4>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Fire AMC Email (Civil Defence)</label>
+                                <input type="email" id="set-cd-email" value="${currentCDEmail}" placeholder="fireamc@example.com" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-300 mb-1">Aman AMC Email</label>
+                                <input type="email" id="set-aman-email" value="${currentAmanEmail}" placeholder="amanamc@example.com" class="w-full bg-gray-900 border border-gray-600 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-teal-500">
+                            </div>
+                        </div>
+                        <button id="save-settings-btn" class="mt-4 w-full px-6 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg transition-colors">Save Email Settings</button>
+                    </div>
+                    ${isEditor ? `
+                    <div class="border-t border-gray-700 pt-5">
+                        <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">📂 Data Management — Civil Defence</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="settings-import-cd" class="flex items-center justify-center gap-2 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors border border-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                Import CD Data
+                            </button>
+                            <button id="settings-export-cd" class="flex items-center justify-center gap-2 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors border border-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+                                Export CD Data
+                            </button>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-700 pt-5">
+                        <h4 class="text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">📂 Data Management — Aman</h4>
+                        <div class="grid grid-cols-2 gap-3">
+                            <button id="settings-import-aman" class="flex items-center justify-center gap-2 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors border border-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                Import Aman Data
+                            </button>
+                            <button id="settings-export-aman" class="flex items-center justify-center gap-2 px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white font-semibold rounded-lg transition-colors border border-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
+                                Export Aman Data
+                            </button>
+                        </div>
+                        <input type="file" id="settings-import-file" class="hidden" accept=".json">
+                    </div>` : ''}
+                </div>
+            `;
+            showModal('⚙️ System Settings', modalContent, () => {
+                document.getElementById('save-settings-btn').addEventListener('click', () => {
+                    window.localStorage.setItem('fireAmcEmail', document.getElementById('set-cd-email').value);
+                    window.localStorage.setItem('amanAmcEmail', document.getElementById('set-aman-email').value);
+                    hideModal();
+                    showToast("✓ Settings saved successfully.");
+                });
+                if (!isEditor) return;
+                // Wire import/export for CD
+                document.getElementById('settings-export-cd').addEventListener('click', () => { triggerExport('Civil Defence'); });
+                document.getElementById('settings-export-aman').addEventListener('click', () => { triggerExport('Aman Certificate'); });
+                document.getElementById('settings-import-cd').addEventListener('click', () => {
+                    window._importTarget = 'Civil Defence';
+                    document.getElementById('settings-import-file').click();
+                });
+                document.getElementById('settings-import-aman').addEventListener('click', () => {
+                    window._importTarget = 'Aman Certificate';
+                    document.getElementById('settings-import-file').click();
+                });
+                document.getElementById('settings-import-file').addEventListener('change', (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        try {
+                            const imported = JSON.parse(ev.target.result);
+                            if (!Array.isArray(imported)) throw new Error('Invalid format');
+                            if (window._importTarget === 'Civil Defence') {
+                                imported.forEach(c => { if (!cdCerts.find(x => x.id === c.id)) cdCerts.push(c); });
+                            } else {
+                                imported.forEach(c => { if (!amanCerts.find(x => x.id === c.id)) amanCerts.push(c); });
+                            }
+                            saveDataToFirebase();
+                            render();
+                            hideModal();
+                            showToast(`✓ ${imported.length} records imported successfully.`);
+                        } catch { showToast('Import failed: invalid JSON file.'); }
+                    };
+                    reader.readAsText(file);
+                });
+            });
+        }
+
+        function triggerExport(type) {
+            const data = type === 'Civil Defence' ? cdCerts : amanCerts;
+            const filtered = data.filter(c => (c.project || 'Main Project') === currentProject);
+            const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${type.replace(/\s/g, '_')}_export_${new Date().toISOString().slice(0,10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast(`✓ ${type} data exported.`);
+        }
+
+
+        window.handleShowWorkflowManager = function handleShowWorkflowManager(id, type, fromHub = false) {
+            const dataArray = type === 'Civil Defence' ? cdCerts : amanCerts;
+            const certIndex = dataArray.findIndex(c => c.id === id);
+            if (certIndex === -1) return;
+            const cert = dataArray[certIndex];
+
+            // Track if we came from the hub so X button returns there
+            window._wfFromHub = !!fromHub;
+            const steps = type === 'Civil Defence' ? CD_WORKFLOW_STEPS : AMAN_WORKFLOW_STEPS;
+            const currentStepIndex = steps.indexOf(cert.workflowStatus);
+            const progressPct = steps.length > 1 ? (currentStepIndex / (steps.length - 1)) * 100 : 0;
+            const isExpired = cert.expiryDate && new Date(cert.expiryDate) < new Date();
+            const typeColor = type === 'Civil Defence' ? 'text-blue-400' : 'text-teal-400';
+            const typeBg = type === 'Civil Defence' ? 'bg-blue-500/10 border-blue-500/30' : 'bg-teal-500/10 border-teal-500/30';
+
+            // --- Left Panel: Property Info ---
+            let leftPanel = `
+            <div class="w-64 flex-shrink-0 flex flex-col gap-4 pr-6 border-r border-gray-700/60">
+                ${fromHub ? `<button id="wf-back-to-hub" class="flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-semibold text-gray-400 hover:text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    Back to Hub
+                </button>` : ''}
+                <div class="${typeBg} border rounded-2xl p-5">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-gray-900 border border-gray-700 flex items-center justify-center shadow-inner">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${typeColor}"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest">${type}</p>
+                            <h3 class="text-2xl font-black text-white">Prop ${cert.propertyNumber}</h3>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between"><span class="text-gray-500">Phase</span><span class="text-white font-semibold">${cert.phase || '—'}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Type</span><span class="text-white font-semibold capitalize">${cert.propertyType || '—'}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-500">Issued</span><span class="text-white font-semibold">${formatDate(cert.issueDate) || '—'}</span></div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-500">Expires</span>
+                            <span class="font-bold ${isExpired ? 'text-red-400' : 'text-green-400'}">${formatDate(cert.expiryDate) || '—'}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-4">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Workflow Progress</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400 mb-2">
+                        <span>Step ${currentStepIndex + 1} of ${steps.length}</span>
+                        <span class="${typeColor} font-bold">${Math.round(progressPct)}%</span>
+                    </div>
+                    <div class="w-full h-2 bg-gray-700 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full bg-gradient-to-r from-teal-600 to-teal-400 transition-all duration-700" style="width:${progressPct}%"></div>
+                    </div>
+                    <p class="text-xs font-bold text-white mt-3 text-center">${cert.workflowStatus || 'Not Started'}</p>
+                </div>
+
+                <div class="bg-gray-900/60 border border-gray-700/50 rounded-2xl p-4">
+                    <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Undo Last Step</p>
+                    ${currentStepIndex > 0 ? `
+                    <button id="wf-undo-btn" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-gray-300 bg-gray-800 hover:bg-gray-700 border border-gray-600 transition-all text-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
+                        Back to: ${steps[currentStepIndex - 1]}
+                    </button>` : `<p class="text-xs text-gray-600 text-center italic">Already at first step</p>`}
+                </div>
+
+            </div>`;
+
+            // --- Right Panel: Stepper + Action ---
+            let stepperHTML = `
+            <div class="flex-1 flex flex-col min-w-0">
+                <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-6">Renewal Timeline — Complete each step in order</p>
+                <div class="flex items-start justify-between w-full mb-10 relative px-2">
+                    <div class="absolute top-5 left-0 w-full h-0.5 bg-gray-700/80"></div>
+                    <div class="absolute top-5 left-0 h-0.5 bg-gradient-to-r from-teal-600 to-teal-400 transition-all duration-700" style="width:${progressPct}%"></div>`;
+
+            steps.forEach((step, index) => {
+                const isActive = index === currentStepIndex;
+                const isCompleted = index < currentStepIndex;
+                let dotStyle = isActive
+                    ? 'background:linear-gradient(135deg,#0d9488,#14b8a6);color:white;box-shadow:0 0 18px rgba(20,184,166,0.7);'
+                    : isCompleted
+                    ? 'background:#134e4a;color:#5eead4;'
+                    : 'background:#1f2937;color:#6b7280;border:1px solid #374151;';
+                stepperHTML += `
+                <div class="flex flex-col items-center" style="flex:1;min-width:0;">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm z-10" style="${dotStyle}">
+                        ${isCompleted ? '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>' : (index + 1)}
+                    </div>
+                    <div class="mt-2 text-center px-1" style="min-width:0">
+                        <p class="text-xs font-semibold leading-tight ${isActive ? 'text-teal-400' : isCompleted ? 'text-teal-600' : 'text-gray-500'}" style="word-break:break-word;">${step}</p>
+                    </div>
+                </div>`;
+            });
+
+            stepperHTML += `</div>`;
+
+
+            // Action card
+            let actionHTML = '';
+            if (cert.workflowStatus === 'Inspection Date') {
+                if (!cert.inspectionDate) {
+                    actionHTML = `
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <div><h4 class="text-xl font-bold text-white">Set Inspection Date</h4><p class="text-sm text-gray-400">Enter the confirmed Civil Defence inspection date.</p></div>
+                    </div>
+                    <input type="date" id="wf-inspection-date" class="w-full max-w-xs bg-gray-900 border border-gray-600 rounded-xl px-4 py-3 text-white mb-4 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                    <button id="wf-save-date-btn" class="px-8 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105" style="background:linear-gradient(135deg,#0d9488,#14b8a6);box-shadow:0 4px 20px rgba(20,184,166,0.35);">Save Inspection Date</button>`;
+                } else {
+                    actionHTML = `
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div><h4 class="text-xl font-bold text-white">Inspection Scheduled</h4><p class="text-2xl font-black text-teal-400">${formatDate(cert.inspectionDate)}</p></div>
+                    </div>
+                    <div class="flex gap-6 mb-6 bg-gray-900/60 p-4 rounded-xl border border-gray-700">
+                        <label class="flex items-center gap-3 cursor-pointer text-gray-300 hover:text-white transition-colors">
+                            <input type="checkbox" id="wf-tenant-called" class="w-5 h-5 rounded accent-teal-500" ${cert.tenantCalled ? 'checked' : ''}> Tenant Called
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer text-gray-300 hover:text-white transition-colors">
+                            <input type="checkbox" id="wf-site-informed" class="w-5 h-5 rounded accent-teal-500" ${cert.siteInformed ? 'checked' : ''}> Site Team Informed
+                        </label>
+                    </div>
+                    <button id="wf-log-result-btn" class="px-8 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 4px 20px rgba(59,130,246,0.35);">Process Inspection Result</button>`;
+                }
+            } else if (cert.workflowStatus === 'Renewal Pending') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-red-400">Action Required</h4><p class="text-sm text-gray-400">Certificate is up for renewal. How did you notify the Fire AMC team?</p></div>
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <button id="wf-email-team-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105 w-full" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 4px 20px rgba(59,130,246,0.35);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Send Email &amp; Mark as Informed
+                    </button>
+                    <button id="wf-mark-informed-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-gray-200 transition-all duration-200 hover:scale-105 w-full bg-gray-700 hover:bg-gray-600 border border-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                        Already Informed (No Email)
+                    </button>
+                </div>`;
+            } else if (cert.workflowStatus === 'Informed Fire team') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fb923c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-orange-400">Fire Team Notified</h4><p class="text-sm text-gray-400">Confirm when the AMC team has submitted their application and you are awaiting their inspection.</p></div>
+                </div>
+                <button id="wf-advance-awaiting-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105" style="background:linear-gradient(135deg,#92400e,#f59e0b);box-shadow:0 4px 20px rgba(245,158,11,0.35);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    Application Submitted — Awaiting Inspection
+                </button>`;
+            } else if (cert.workflowStatus === 'Awaiting inspection') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-yellow-400">Set Inspection Date</h4><p class="text-sm text-gray-400">Enter the confirmed inspection date to advance the workflow.</p></div>
+                </div>
+                <div class="flex items-center gap-3 w-full">
+                    <input type="date" id="wf-advance-inspection-date" class="flex-1 bg-gray-900 border border-yellow-500/40 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                    <button id="wf-advance-inspection-btn" class="px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105 whitespace-nowrap" style="background:linear-gradient(135deg,#92400e,#f59e0b);box-shadow:0 4px 20px rgba(245,158,11,0.3);">
+                        Confirm Date
+                    </button>
+                </div>`;
+            } else if (cert.workflowStatus === 'Certificate ready') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-green-400">Certificate Ready</h4><p class="text-sm text-gray-400">Renewal is complete. Certificate is active and valid.</p></div>
+                </div>`;
+            } else if (cert.workflowStatus === 'Application Done' && type === 'Aman Certificate') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-blue-400">Application Submitted</h4><p class="text-sm text-gray-400">Payment made, application done. Confirm when the Aman team is ready to install.</p></div>
+                </div>
+                <button id="wf-aman-install-start-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white w-full hover:scale-105 transition-all" style="background:linear-gradient(135deg,#1e3a8a,#3b82f6);box-shadow:0 4px 20px rgba(59,130,246,0.3);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    Mark Installation as Started
+                </button>`;
+            } else if (cert.workflowStatus === 'Installation in Progress' && type === 'Aman Certificate') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-purple-400">Installation in Progress</h4><p class="text-sm text-gray-400">Aman team is on-site. Confirm once the installation is fully complete.</p></div>
+                </div>
+                <button id="wf-aman-install-done-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white w-full hover:scale-105 transition-all" style="background:linear-gradient(135deg,#5b21b6,#8b5cf6);box-shadow:0 4px 20px rgba(139,92,246,0.3);">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    Mark Installation as Done
+                </button>`;
+            } else if (cert.workflowStatus === 'Installation Done' && type === 'Aman Certificate') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-green-400">Installation Complete!</h4><p class="text-sm text-gray-400">Enter the certificate expiry date and upload the document to finalize.</p></div>
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <div class="grid grid-cols-1 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Certificate Expiry Date <span class="text-red-400">*</span></label>
+                            <input type="date" id="aman-install-expiry" class="w-full bg-gray-900 border border-green-500/40 rounded-xl px-4 py-3 text-white text-sm focus:ring-2 focus:ring-green-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Upload Certificate <span class="text-gray-500">(optional)</span></label>
+                            <input type="file" id="aman-install-cert-file" accept=".pdf,image/*" class="w-full text-sm text-gray-300 file:mr-3 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 cursor-pointer">
+                        </div>
+                    </div>
+                    <button id="wf-aman-certify-btn" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-white hover:scale-105 transition-all" style="background:linear-gradient(135deg,#15803d,#22c55e);box-shadow:0 4px 20px rgba(34,197,94,0.35);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Confirm &amp; Mark Certificate Ready
+                    </button>
+                </div>`;
+            } else if (cert.workflowStatus === 'Pending Renewal' && type === 'Aman Certificate') {
+                const amanEmailTarget = window.localStorage.getItem('amanAmcEmail') || 'amanamc@example.com';
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#f87171" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-red-400">Aman Renewal Pending</h4><p class="text-sm text-gray-400">Property ${cert.propertyNumber} needs renewal. Notify the Aman AMC team.</p></div>
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <button id="wf-aman-email-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white w-full hover:scale-105 transition-all" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 4px 20px rgba(59,130,246,0.3);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Send Renewal Email to Aman AMC
+                    </button>
+                    <div class="border-t border-gray-700 pt-4">
+                        <p class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">OR — Upload Renewed Certificate Directly</p>
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">New Expiry Date <span class="text-red-400">*</span></label>
+                                <input type="date" id="aman-new-expiry" class="w-full bg-gray-900 border border-red-500/40 rounded-xl px-3 py-2 text-white text-sm focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-400 mb-1">Certificate File</label>
+                                <input type="file" id="aman-cert-file" accept=".pdf,image/*" class="w-full text-xs text-gray-300 file:mr-2 file:py-1 file:px-2 file:rounded-lg file:border-0 file:text-xs file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 cursor-pointer">
+                            </div>
+                        </div>
+                        <button id="wf-aman-confirm-btn" class="w-full px-6 py-3 rounded-xl font-bold text-white hover:scale-105 transition-all" style="background:linear-gradient(135deg,#15803d,#22c55e);box-shadow:0 4px 20px rgba(34,197,94,0.3);">
+                            ✓ Confirm Renewal &amp; Mark Certificate Ready
+                        </button>
+                    </div>
+                </div>`;
+            } else {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-14 h-14 rounded-2xl bg-teal-500/10 border border-teal-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-white">${cert.workflowStatus}</h4><p class="text-sm text-gray-400">Awaiting updates for this stage.</p></div>
+                </div>`;
+            }
+
+            stepperHTML += `
+                <div class="bg-gray-900/60 border border-gray-700/60 rounded-2xl p-6 flex flex-col items-start">
+                    ${actionHTML}
+                </div>
+            </div>`;
+
+            const fullHTML = `<div class="flex gap-6">${leftPanel}${stepperHTML}</div>`;
+            const stepContentHTML = '';
+
+            showModal(`Workflow Manager — Property ${cert.propertyNumber}`, fullHTML, () => {
+
+                // Helper: prompt for new certificate dates before setting Ready
+                function showCertReadyPrompt() {
+                    const actionCard = document.querySelector('#modal-container .bg-gray-900\\/60.rounded-2xl.p-6');
+                    if (!actionCard) return;
+                    actionCard.innerHTML = `
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-14 h-14 rounded-2xl bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            </div>
+                            <div><h4 class="text-xl font-bold text-green-400">Finalize Certificate</h4><p class="text-sm text-gray-400">Enter dates and upload the renewed certificate document.</p></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 w-full mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">New Issue Date</label>
+                                <input type="date" id="cr-issue-date" value="${cert.issueDate || ''}" class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-green-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">New Expiry Date <span class="text-red-400">*</span></label>
+                                <input type="date" id="cr-expiry-date" class="w-full bg-gray-900 border border-red-500/50 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-green-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">Upload Certificate Document (PDF/Image)</label>
+                            <div class="flex items-center gap-3 bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                <input type="file" id="cr-cert-file" accept=".pdf,image/*" class="flex-1 text-sm text-gray-300 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 cursor-pointer">
+                                ${cert.certificateLink ? `<button type="button" onclick="window.openLocalFile('${cert.certificateLink}')" class="text-xs text-teal-400 hover:underline whitespace-nowrap flex items-center gap-1"><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'></path><polyline points='15 3 21 3 21 9'></polyline><line x1='10' y1='14' x2='21' y2='3'></line></svg>View Current</button>` : ''}
+                            </div>
+                            <p id="cr-upload-status" class="text-xs text-gray-500 mt-1 hidden"></p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="cr-confirm-btn" class="flex-1 px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105" style="background:linear-gradient(135deg,#15803d,#22c55e);box-shadow:0 4px 20px rgba(34,197,94,0.35);">
+                                ✓ Confirm &amp; Mark Ready
+                            </button>
+                            <button id="cr-cancel-btn" class="px-6 py-3 rounded-xl font-bold text-gray-300 bg-gray-700 hover:bg-gray-600 transition-colors">
+                                Cancel
+                            </button>
+                        </div>
+                    `;
+                    document.getElementById('cr-confirm-btn').addEventListener('click', async () => {
+                        const newExpiry = document.getElementById('cr-expiry-date').value;
+                        const newIssue = document.getElementById('cr-issue-date').value;
+                        const fileInput = document.getElementById('cr-cert-file');
+                        const uploadStatus = document.getElementById('cr-upload-status');
+                        if (!newExpiry) { showToast('Please enter the new expiry date.'); return; }
+
+                        // Handle optional file upload
+                        if (fileInput && fileInput.files.length > 0) {
+                            const file = fileInput.files[0];
+                            if (!window.linkedFolderHandle) {
+                                showToast('No OneDrive folder linked. Certificate saved without document.');
+                            } else {
+                                try {
+                                    uploadStatus.textContent = 'Saving certificate...';
+                                    uploadStatus.classList.remove('hidden');
+                                    const fileHandle = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    const writable = await fileHandle.createWritable();
+                                    await writable.write(file);
+                                    await writable.close();
+                                    cert.certificateLink = file.name;
+                                    uploadStatus.textContent = '✓ Certificate saved!';
+                                } catch (err) {
+                                    uploadStatus.textContent = 'Upload failed: ' + err.message;
+                                }
+                            }
+                        }
+
+                        if (newIssue) cert.issueDate = newIssue;
+                        cert.expiryDate = newExpiry;
+                        cert.workflowStatus = 'Certificate ready';
+                        cert.inspectionDate = '';
+                        cert.amcOnly = false;
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('🎉 Certificate marked as Ready!');
+                    });
+                    document.getElementById('cr-cancel-btn').addEventListener('click', hideModal);
+                }
+
+                // New button: Mark Informed without email
+                const markInformedBtn = document.getElementById('wf-mark-informed-btn');
+                if (markInformedBtn) {
+                    markInformedBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Informed Fire team';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Marked as Informed (no email sent)');
+                    });
+                }
+
+                // Button: advance from Informed → Awaiting inspection
+                const advanceAwaitingBtn = document.getElementById('wf-advance-awaiting-btn');
+                if (advanceAwaitingBtn) {
+                    advanceAwaitingBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Awaiting inspection';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Advanced to Awaiting Inspection');
+                    });
+                }
+
+                // Button: advance from Awaiting inspection → Inspection Date (requires date input)
+                const advanceInspBtn = document.getElementById('wf-advance-inspection-btn');
+                if (advanceInspBtn) {
+                    advanceInspBtn.addEventListener('click', () => {
+                        const dateVal = document.getElementById('wf-advance-inspection-date').value;
+                        if (!dateVal) { showToast('Please enter the inspection date first.'); return; }
+                        cert.workflowStatus = 'Inspection Date';
+                        cert.inspectionDate = dateVal;
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Inspection date set successfully');
+                    });
+                }
+
+                const emailBtn = document.getElementById('wf-email-team-btn');
+                if (emailBtn) {
+                    emailBtn.addEventListener('click', () => {
+                        handleEmailFireTeam(cert);
+                        cert.workflowStatus = 'Informed Fire team';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Email sent & marked as Informed');
+                    });
+                }
+
+                // Undo — go back one step
+                const undoBtn = document.getElementById('wf-undo-btn');
+                if (undoBtn) {
+                    undoBtn.addEventListener('click', () => {
+                        const prevStep = steps[currentStepIndex - 1];
+                        cert.workflowStatus = prevStep;
+                        if (prevStep !== 'Inspection Date') cert.inspectionDate = '';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast(`↩ Reverted to "${prevStep}"`);
+                    });
+                }
+
+                // Aman: Send renewal email
+                const amanEmailBtn = document.getElementById('wf-aman-email-btn');
+                if (amanEmailBtn) {
+                    amanEmailBtn.addEventListener('click', () => {
+                        const amanEmail = window.localStorage.getItem('amanAmcEmail') || 'amanamc@example.com';
+                        const body = `Hello Team,\n\nThe Aman security certificate for Property ${cert.propertyNumber} has expired on ${formatDate(cert.expiryDate)}.\n\nAccount ID: ${cert.accountId || 'N/A'}\nRecord ID: ${cert.recordId || 'N/A'}\nDevice ID: ${cert.deviceId || 'N/A'}\nSerial No: ${cert.serialNumber || 'N/A'}\n\nPlease initiate the renewal process and send us the updated certificate.\n\nThank you.`;
+                        const subject = `Aman Certificate Renewal Required — Property ${cert.propertyNumber}`;
+                        const link = document.createElement('a');
+                        link.href = `mailto:${amanEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        showToast('✓ Renewal email opened in mail client');
+                    });
+                }
+
+                // Aman: Confirm renewal — upload cert + set expiry → Certificate ready
+                const amanConfirmBtn = document.getElementById('wf-aman-confirm-btn');
+                if (amanConfirmBtn) {
+                    amanConfirmBtn.addEventListener('click', async () => {
+                        const newExpiry = document.getElementById('aman-new-expiry').value;
+                        if (!newExpiry) { showToast('Please enter the new expiry date.'); return; }
+                        const fileInput = document.getElementById('aman-cert-file');
+                        if (fileInput && fileInput.files.length > 0) {
+                            const file = fileInput.files[0];
+                            if (window.linkedFolderHandle) {
+                                try {
+                                    const fh = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    const wr = await fh.createWritable();
+                                    await wr.write(file);
+                                    await wr.close();
+                                    cert.certificateLink = file.name;
+                                } catch (e) { showToast('File save failed: ' + e.message); }
+                            }
+                        }
+                        cert.expiryDate = newExpiry;
+                        cert.workflowStatus = 'Certificate ready';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('🎉 Aman Certificate renewed & marked as Ready!');
+                    });
+                }
+
+                // Back to Hub
+                const backToHubBtn = document.getElementById('wf-back-to-hub');
+                if (backToHubBtn) {
+                    backToHubBtn.addEventListener('click', () => {
+                        window._suppressHideRender = true;
+                        hideModal();
+                        handleShowWorkflowHub();
+                    });
+                }
+
+                // Aman: Application Done → Installation in Progress
+                const installStartBtn = document.getElementById('wf-aman-install-start-btn');
+                if (installStartBtn) {
+                    installStartBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Installation in Progress';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type, fromHub), 10);
+                        showToast('✓ Installation marked as started');
+                    });
+                }
+
+                // Aman: Installation in Progress → Installation Done
+                const installDoneBtn = document.getElementById('wf-aman-install-done-btn');
+                if (installDoneBtn) {
+                    installDoneBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Installation Done';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type, fromHub), 10);
+                        showToast('✓ Installation marked as done — please enter certificate details');
+                    });
+                }
+
+                // Aman: Installation Done → Certificate Ready (with expiry + optional upload)
+                const amanCertifyBtn = document.getElementById('wf-aman-certify-btn');
+                if (amanCertifyBtn) {
+                    amanCertifyBtn.addEventListener('click', async () => {
+                        const expiryVal = document.getElementById('aman-install-expiry').value;
+                        if (!expiryVal) { showToast('Please enter the certificate expiry date.'); return; }
+                        const fileInput = document.getElementById('aman-install-cert-file');
+                        if (fileInput && fileInput.files.length > 0) {
+                            const file = fileInput.files[0];
+                            if (window.linkedFolderHandle) {
+                                try {
+                                    const fh = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    const wr = await fh.createWritable();
+                                    await wr.write(file);
+                                    await wr.close();
+                                    cert.certificateLink = file.name;
+                                } catch (e) { showToast('File save failed: ' + e.message); }
+                            }
+                        }
+                        cert.expiryDate = expiryVal;
+                        cert.workflowStatus = 'Certificate ready';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type, fromHub), 10);
+                        showToast('🎉 Aman Certificate is now Ready!');
+                    });
+                }
+
+                const saveDateBtn = document.getElementById('wf-save-date-btn');
+                if (saveDateBtn) {
+                    saveDateBtn.addEventListener('click', () => {
+                        const date = document.getElementById('wf-inspection-date').value;
+                        if (!date) { showToast('Please select an inspection date.'); return; }
+                        cert.inspectionDate = date;
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Inspection date saved');
+                    });
+                }
+
+                const tenantCb = document.getElementById('wf-tenant-called');
+                const siteCb = document.getElementById('wf-site-informed');
+                if (tenantCb) {
+                    tenantCb.addEventListener('change', (e) => { cert.tenantCalled = e.target.checked; saveDataToFirebase(); });
+                }
+                if (siteCb) {
+                    siteCb.addEventListener('change', (e) => { cert.siteInformed = e.target.checked; saveDataToFirebase(); });
+                }
+
+                const logResultBtn = document.getElementById('wf-log-result-btn');
+                if (logResultBtn) {
+                    logResultBtn.addEventListener('click', () => {
+                        const contentArea = document.querySelector('#modal-container .bg-gray-900\\/60.rounded-2xl.p-6');
+                        contentArea.innerHTML = `
+                            <h4 class="text-xl font-bold text-teal-400 mb-6">Did the inspection take place?</h4>
+                            <div class="flex gap-4">
+                                <button id="wf-reschedule-btn" class="px-6 py-3 bg-gray-600 hover:bg-gray-500 text-white font-bold rounded-lg transition-colors">No, Rescheduled</button>
+                                <button id="wf-done-btn" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg shadow-lg transition-colors">Yes, Completed</button>
+                            </div>
+                        `;
+
+                        document.getElementById('wf-reschedule-btn').addEventListener('click', () => {
+                            cert.inspectionDate = '';
+                            saveDataToFirebase();
+                            render();
+                            hideModal();
+                            setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        });
+
+                        document.getElementById('wf-done-btn').addEventListener('click', () => {
+                            contentArea.innerHTML = `
+                                <h4 class="text-xl font-bold text-teal-400 mb-6">Inspection Result:</h4>
+                                <div class="flex gap-4">
+                                    <button id="wf-fail-btn" class="px-6 py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-lg transition-colors">Failed</button>
+                                    <button id="wf-pass-btn" class="px-6 py-3 bg-green-600 hover:bg-green-500 text-white font-bold rounded-lg shadow-lg transition-colors">Passed</button>
+                                </div>
+                             `;
+
+                            document.getElementById('wf-fail-btn').addEventListener('click', () => {
+                                cert.workflowStatus = 'Awaiting inspection';
+                                cert.inspectionDate = '';
+                                showToast('Inspection Failed. Status reset to Awaiting inspection.');
+                                saveDataToFirebase();
+                                hideModal();
+                                setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                            });
+
+                            document.getElementById('wf-pass-btn').addEventListener('click', () => {
+                                contentArea.innerHTML = `
+                                    <h4 class="text-xl font-bold text-green-400 mb-4">Inspection Passed!</h4>
+                                    <p class="text-gray-300 mb-6">Please update the certificate details.</p>
+                                    <div class="grid grid-cols-2 gap-4 w-full max-w-md text-left mb-6">
+                                        <div>
+                                            <label class="block text-sm text-gray-400 mb-1">New Issue Date</label>
+                                            <input type="date" id="wf-new-issue" class="w-full bg-gray-800 border-gray-600 rounded px-3 py-2 text-white">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm text-gray-400 mb-1">New Expiry Date</label>
+                                            <input type="date" id="wf-new-expiry" class="w-full bg-gray-800 border-gray-600 rounded px-3 py-2 text-white">
+                                        </div>
+                                    </div>
+                                    <button id="wf-finalize-btn" class="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg shadow-lg transition-colors">Finalize & Mark Ready</button>
+                                 `;
+
+                                document.getElementById('wf-finalize-btn').addEventListener('click', () => {
+                                    const issue = document.getElementById('wf-new-issue').value;
+                                    const expiry = document.getElementById('wf-new-expiry').value;
+                                    if (issue) cert.issueDate = issue;
+                                    if (expiry) cert.expiryDate = expiry;
+
+                                    cert.workflowStatus = 'Certificate ready';
+                                    cert.inspectionDate = '';
+                                    cert.amcOnly = false;
+                                    cert.tenantCalled = false;
+                                    cert.siteInformed = false;
+
+                                    showToast("Success! Certificate is now Ready.");
+                                    saveDataToFirebase();
+                                    render();
+                                    hideModal();
+                                });
+                            });
+                        });
+                    });
+                }
+            }, 'max-w-7xl');
+        }
+        window.handleShowWorkflowManager = handleShowWorkflowManager;
+        window.handleShowWorkflowHub = handleShowWorkflowHub;
+
         // --- Event Listeners ---
         document.addEventListener('click', (e) => {
             if (!e.target.closest('.workflow-status-btn') && !e.target.closest('#notification-btn')) {
@@ -2767,56 +3947,35 @@
             }
         });
 
-        // ADDED: Notification button toggle
-        document.getElementById('notification-btn').addEventListener('click', (e) => {
-            e.preventDefault();
-            const dropdown = document.getElementById('notification-dropdown');
-            dropdown.classList.toggle('hidden');
-        });
-
         document.querySelector('main').addEventListener('click', (e) => {
             const actionBtn = e.target.closest('.action-btn');
-            const workflowBtn = e.target.closest('.workflow-status-btn');
-            const workflowOption = e.target.closest('.workflow-option');
-
-            if (workflowBtn) {
+            const workflowHubBtn = e.target.closest('#workflow-hub-btn');
+            const toolsBtn = e.target.closest('#tools-btn');
+            if (workflowHubBtn) {
                 e.preventDefault();
-                e.stopPropagation();
-                const id = workflowBtn.dataset.id;
-                const dropdown = document.getElementById(`workflow-dropdown-${id}`);
+                handleShowWorkflowHub();
+                return;
+            }
 
-                document.querySelectorAll('[id^="workflow-dropdown-"]').forEach(d => {
-                    if (d.id !== dropdown.id) {
-                        d.classList.add('hidden');
-                    }
-                });
-
-                if (dropdown) {
-                    dropdown.classList.toggle('hidden');
-                }
-            } else if (workflowOption) {
+            if (e.target.closest('#bulk-email-btn')) {
                 e.preventDefault();
-                const id = workflowOption.dataset.id;
-                const newStatus = workflowOption.dataset.newStatus;
-                const type = workflowOption.dataset.type;
+                handleBulkEmailCD();
+                return;
+            }
 
-                const dataArray = type === 'Civil Defence' ? cdCerts : amanCerts;
-                const certIndex = dataArray.findIndex(c => c.id === id);
-                if (certIndex === -1) return;
+            if (e.target.closest('#bulk-remind-later-btn')) {
+                e.preventDefault();
+                handleBulkInformedCD();
+                return;
+            }
 
-                if (newStatus === 'Inspection Date' && type === 'Civil Defence') {
-                    handleSetInspectionDate(id);
-                } else {
-                    dataArray[certIndex].workflowStatus = newStatus;
-                    if (newStatus !== 'Inspection Date') {
-                        dataArray[certIndex].inspectionDate = '';
-                    }
-                    saveDataToFirebase(); // Cloud Save
-                    render();
-                }
+            if (toolsBtn) {
+                e.preventDefault();
+                handleShowTools();
+                return;
+            }
 
-                workflowOption.closest('[id^="workflow-dropdown-"]').classList.add('hidden');
-            } else if (actionBtn) {
+            if (actionBtn) {
                 const { action, id, type } = actionBtn.dataset;
                 if (action === 'edit') {
                     handleShowForm(type, id);
@@ -2836,12 +3995,25 @@
                     handleUpdateInspectionStatus(id);
                 } else if (action === 'renew') { // NEW RENEWAL ACTION
                     handleShowRenewalModal(type, id);
+                } else if (action === 'email-fire-team') {
+                    const dataArray = type === 'Civil Defence' ? cdCerts : amanCerts;
+                    const cert = dataArray.find(c => c.id === id);
+                    if (cert) {
+                        handleEmailFireTeam(cert);
+                        cert.workflowStatus = 'Informed Fire team';
+                        saveDataToFirebase();
+                        render();
+                        showToast("Email generated. Status updated to 'Informed Fire team'.");
+                    }
                 }
             }
         });
 
+        document.getElementById('settings-btn').addEventListener('click', handleShowSettingsModal);
+
         // --- Initialization ---
         function initialize() {
+            initOneDrive(); // Try to auto-link the folder silently
             // We wait for auth to complete to load data from Firebase
         }
 
