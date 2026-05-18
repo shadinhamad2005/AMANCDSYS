@@ -1686,6 +1686,30 @@
                     ` : ''}
                     ${sectionHeader('Notes')}
                     <div class="col-span-2"><textarea id="notes" name="notes" rows="2" class="${inputCls} resize-none" placeholder="Optional notes...">${formData.notes || ''}</textarea></div>
+                    ${sectionHeader('Certificate Document')}
+                    <div class="col-span-2">
+                        <input type="hidden" id="certificateLink" name="certificateLink" value="${formData.certificateLink || ''}">
+                        <div class="flex flex-col gap-2 p-3 bg-gray-800/60 rounded-lg border border-gray-700">
+                            ${formData.certificateLink ? `
+                            <div class="flex items-center justify-between gap-2 mb-1">
+                                <span class="text-xs text-gray-400 truncate flex-1" title="${formData.certificateLink}">
+                                    📎 Current: <span class="text-teal-400">${formData.certificateLink.length > 40 ? formData.certificateLink.substring(formData.certificateLink.lastIndexOf('_')+1) : formData.certificateLink}</span>
+                                </span>
+                                <button type="button" id="view-current-cert-btn" class="flex-shrink-0 text-xs px-2 py-1 rounded bg-teal-700/50 text-teal-300 hover:bg-teal-600/60 transition-colors">View Current</button>
+                            </div>` : '<p class="text-xs text-gray-500 mb-1">No certificate linked yet.</p>'}
+                            <div class="flex gap-2 items-center">
+                                <input type="text" id="certLinkText" placeholder="Paste URL or upload file below..." class="${inputCls} flex-1" value="${formData.certificateLink && formData.certificateLink.startsWith('http') ? formData.certificateLink : ''}">
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <input type="file" id="certFileInput" accept=".pdf,image/*" class="hidden">
+                                <button type="button" id="upload-cert-btn" class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-700 hover:bg-gray-600 text-sm font-semibold text-white border border-gray-600 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+                                    Upload New Certificate
+                                </button>
+                                <span id="upload-cert-status" class="text-xs hidden"></span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 ${isAman && isEdit ? amanMenuHtml : ''}
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-700/60 mt-2">
@@ -1777,16 +1801,35 @@
                     });
                 }
 
-                // File Upload Logic (Local OneDrive)
+                // Certificate Document — View Current
+                const viewCurrentBtn = document.getElementById('view-current-cert-btn');
+                if (viewCurrentBtn) {
+                    viewCurrentBtn.addEventListener('click', () => {
+                        const link = document.getElementById('certificateLink').value;
+                        if (link) window.openLocalFile(link);
+                    });
+                }
+
+                // Certificate Document — paste URL updates hidden input
+                const certLinkText = document.getElementById('certLinkText');
+                const certLinkHidden = document.getElementById('certificateLink');
+                if (certLinkText && certLinkHidden) {
+                    certLinkText.addEventListener('input', (e) => {
+                        if (e.target.value.startsWith('http')) {
+                            certLinkHidden.value = e.target.value;
+                        }
+                    });
+                }
+
+                // Certificate Document — Upload File
                 const uploadBtn = document.getElementById('upload-cert-btn');
-                const uploadStatus = document.getElementById('upload-status');
-                const linkInput = document.getElementById('certificateLink');
-                const fileInput = document.getElementById('certificateFile');
+                const uploadStatus = document.getElementById('upload-cert-status');
+                const fileInput = document.getElementById('certFileInput');
 
                 if (uploadBtn && fileInput) {
                     uploadBtn.addEventListener('click', async () => {
                         if (!oneDriveFolderHandle) {
-                            showModal("Access Required", "<p class='text-red-400'>Please click 'Link OneDrive' or 'Grant Access' in the sidebar first to link your local certificate folder.</p>");
+                            showToast('⚠️ Please link your OneDrive folder first (sidebar button).');
                             return;
                         }
                         fileInput.click();
@@ -1796,7 +1839,7 @@
                         const file = e.target.files[0];
                         if (!file) return;
 
-                        uploadStatus.textContent = 'Saving to OneDrive...';
+                        uploadStatus.textContent = 'Saving...';
                         uploadStatus.classList.remove('hidden', 'text-green-400', 'text-red-400');
                         uploadStatus.classList.add('text-teal-400');
                         uploadBtn.disabled = true;
@@ -1813,15 +1856,16 @@
                             await writable.write(file);
                             await writable.close();
 
-                            linkInput.value = fileName;
+                            // Update hidden input so it is saved on form submit
+                            document.getElementById('certificateLink').value = fileName;
 
-                            uploadStatus.textContent = 'Saved to folder!';
+                            uploadStatus.textContent = `✓ Saved: ${file.name}`;
                             uploadStatus.classList.remove('text-teal-400', 'text-red-400');
                             uploadStatus.classList.add('text-green-400');
                             uploadBtn.disabled = false;
                         } catch (err) {
                             console.error(err);
-                            uploadStatus.textContent = 'Save failed!';
+                            uploadStatus.textContent = 'Save failed: ' + err.message;
                             uploadStatus.classList.remove('text-teal-400', 'text-green-400');
                             uploadStatus.classList.add('text-red-400');
                             uploadBtn.disabled = false;
