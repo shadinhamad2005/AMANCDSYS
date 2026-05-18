@@ -1440,7 +1440,20 @@
                         <p class="text-sm text-gray-400 mt-1">Select a property to manage its renewal process and inspection status.</p>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <div class="flex flex-col sm:flex-row gap-3 mb-5">
+                    <div class="relative flex-1">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <input type="search" id="hub-search" placeholder="Search by property number..." class="w-full bg-gray-900 border border-gray-700 rounded-lg pl-9 pr-4 py-2 text-sm text-white placeholder-gray-500 focus:ring-2 focus:ring-teal-500 focus:outline-none">
+                    </div>
+                    <select id="hub-sort" class="bg-gray-900 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:ring-2 focus:ring-teal-500 focus:outline-none cursor-pointer">
+                        <option value="prop-asc">Property No. ↑</option>
+                        <option value="prop-desc">Property No. ↓</option>
+                        <option value="expiry-asc">Expiry Date ↑</option>
+                        <option value="expiry-desc">Expiry Date ↓</option>
+                        <option value="status-asc">Status A→Z</option>
+                    </select>
+                </div>
+                <div id="hub-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             `;
             
             if (activeCerts.length > 0) {
@@ -1451,7 +1464,10 @@
                     const borderColor = isExp ? 'border-red-500/30' : 'border-gray-700 hover:border-teal-500/50';
 
                     contentHTML += `
-                    <div class="group bg-gray-800/80 backdrop-blur-sm border ${borderColor} p-5 rounded-2xl shadow-xl cursor-pointer hover:bg-gray-700/80 transition-all duration-300 hover:-translate-y-1" 
+                    <div class="group bg-gray-800/80 backdrop-blur-sm border ${borderColor} p-5 rounded-2xl shadow-xl cursor-pointer hover:bg-gray-700/80 transition-all duration-300 hover:-translate-y-1"
+                     data-prop-num="${cert.propertyNumber}"
+                     data-expiry="${cert.expiryDate || ''}"
+                     data-status="${cert.workflowStatus || ''}"
                      onclick="window._suppressHideRender = true; hideModal(); handleShowWorkflowManager('${cert.id}', '${currentPage}', true);">
 
                         
@@ -1490,7 +1506,62 @@
             
             contentHTML += `</div>`;
             
-            showModal("Active Workflows Hub", contentHTML, () => {}, 'max-w-6xl');
+            showModal("Active Workflows Hub", contentHTML, () => {
+                const searchInput = document.getElementById('hub-search');
+                const sortSelect = document.getElementById('hub-sort');
+                const grid = document.getElementById('hub-cards-grid');
+
+                if (!searchInput || !grid) return;
+
+                function getCardData(card) {
+                    return {
+                        prop: card.dataset.propNum || '',
+                        expiry: card.dataset.expiry || '',
+                        status: card.dataset.status || ''
+                    };
+                }
+
+                function filterAndSort() {
+                    const term = searchInput.value.trim().toLowerCase();
+                    const sortVal = sortSelect ? sortSelect.value : 'prop-asc';
+                    const cards = Array.from(grid.querySelectorAll('[data-prop-num]'));
+
+                    cards.forEach(card => {
+                        const { prop } = getCardData(card);
+                        card.style.display = (!term || prop.toLowerCase().includes(term)) ? '' : 'none';
+                    });
+
+                    const visibleCards = cards.filter(c => c.style.display !== 'none');
+                    visibleCards.sort((a, b) => {
+                        const da = getCardData(a);
+                        const db = getCardData(b);
+                        if (sortVal === 'prop-asc')  return String(da.prop).localeCompare(String(db.prop), undefined, { numeric: true });
+                        if (sortVal === 'prop-desc') return String(db.prop).localeCompare(String(da.prop), undefined, { numeric: true });
+                        if (sortVal === 'expiry-asc')  return (da.expiry || '9999') < (db.expiry || '9999') ? -1 : 1;
+                        if (sortVal === 'expiry-desc') return (da.expiry || '9999') > (db.expiry || '9999') ? -1 : 1;
+                        if (sortVal === 'status-asc') return da.status.localeCompare(db.status);
+                        return 0;
+                    });
+                    visibleCards.forEach(c => grid.appendChild(c));
+
+                    // Show empty state
+                    let emptyMsg = grid.querySelector('.hub-empty-msg');
+                    if (visibleCards.length === 0 && term) {
+                        if (!emptyMsg) {
+                            emptyMsg = document.createElement('p');
+                            emptyMsg.className = 'hub-empty-msg col-span-full text-center text-gray-400 py-8';
+                            emptyMsg.textContent = 'No workflows match your search.';
+                            grid.appendChild(emptyMsg);
+                        }
+                    } else if (emptyMsg) {
+                        emptyMsg.remove();
+                    }
+                }
+
+                searchInput.addEventListener('input', filterAndSort);
+                if (sortSelect) sortSelect.addEventListener('change', filterAndSort);
+                filterAndSort(); // initial sort
+            }, 'max-w-6xl');
         }
 
 
@@ -3620,17 +3691,22 @@
                         // Handle optional file upload
                         if (fileInput && fileInput.files.length > 0) {
                             const file = fileInput.files[0];
-                            if (!window.linkedFolderHandle) {
+                            if (!oneDriveFolderHandle) {
                                 showToast('No OneDrive folder linked. Certificate saved without document.');
                             } else {
                                 try {
                                     uploadStatus.textContent = 'Saving certificate...';
                                     uploadStatus.classList.remove('hidden');
-                                    const fileHandle = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                        await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
+                                    }
+                                    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                                    const fileName = `${Date.now()}_${safeName}`;
+                                    const fileHandle = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
                                     const writable = await fileHandle.createWritable();
                                     await writable.write(file);
                                     await writable.close();
-                                    cert.certificateLink = file.name;
+                                    cert.certificateLink = fileName;
                                     uploadStatus.textContent = '✓ Certificate saved!';
                                 } catch (err) {
                                     uploadStatus.textContent = 'Upload failed: ' + err.message;
@@ -3741,14 +3817,21 @@
                         const fileInput = document.getElementById('aman-cert-file');
                         if (fileInput && fileInput.files.length > 0) {
                             const file = fileInput.files[0];
-                            if (window.linkedFolderHandle) {
+                            if (oneDriveFolderHandle) {
                                 try {
-                                    const fh = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                        await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
+                                    }
+                                    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                                    const fileName = `${Date.now()}_${safeName}`;
+                                    const fh = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
                                     const wr = await fh.createWritable();
                                     await wr.write(file);
                                     await wr.close();
-                                    cert.certificateLink = file.name;
+                                    cert.certificateLink = fileName;
                                 } catch (e) { showToast('File save failed: ' + e.message); }
+                            } else {
+                                showToast('No OneDrive folder linked. Certificate saved without document.');
                             }
                         }
                         cert.expiryDate = newExpiry;
@@ -3803,14 +3886,21 @@
                         const fileInput = document.getElementById('aman-install-cert-file');
                         if (fileInput && fileInput.files.length > 0) {
                             const file = fileInput.files[0];
-                            if (window.linkedFolderHandle) {
+                            if (oneDriveFolderHandle) {
                                 try {
-                                    const fh = await window.linkedFolderHandle.getFileHandle(file.name, { create: true });
+                                    if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                        await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
+                                    }
+                                    const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                                    const fileName = `${Date.now()}_${safeName}`;
+                                    const fh = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
                                     const wr = await fh.createWritable();
                                     await wr.write(file);
                                     await wr.close();
-                                    cert.certificateLink = file.name;
+                                    cert.certificateLink = fileName;
                                 } catch (e) { showToast('File save failed: ' + e.message); }
+                            } else {
+                                showToast('No OneDrive folder linked. Certificate saved without document.');
                             }
                         }
                         cert.expiryDate = expiryVal;
