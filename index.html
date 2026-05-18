@@ -899,22 +899,22 @@
             let detailCards = '';
 
             // Icons (inline SVG strings)
-            const iTotal  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
-            const iValid  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
-            const iNear   = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
-            const iExpired= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
-            const iPending= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
-            const iInspect= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
-            const iCal    = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
-            const iAmc    = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
-            const iInstall= `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`;
-            const iReady  = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>`;
+            const iTotal = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`;
+            const iValid = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+            const iNear = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`;
+            const iExpired = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`;
+            const iPending = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+            const iInspect = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
+            const iCal = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+            const iAmc = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`;
+            const iInstall = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>`;
+            const iReady = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>`;
 
             if (isCivilDefence) {
                 const awaitingInspection = data.filter(c => c.workflowStatus === 'Awaiting inspection').length;
-                const inspectionDateSet  = data.filter(c => c.workflowStatus === 'Inspection Date').length;
-                const amcReady          = data.filter(c => c.workflowStatus === 'AMC ready').length;
-                const renewalPending    = data.filter(c => c.workflowStatus === 'Renewal Pending').length;
+                const inspectionDateSet = data.filter(c => c.workflowStatus === 'Inspection Date').length;
+                const amcReady = data.filter(c => c.workflowStatus === 'AMC ready').length;
+                const renewalPending = data.filter(c => c.workflowStatus === 'Renewal Pending').length;
                 detailCards = `
                     ${generateDetailStatCardHTML(`Total ${currentProject} CD`, data.length, 'teal', iTotal)}
                     ${generateDetailStatCardHTML('Valid', status.valid, 'green', iValid)}
@@ -925,11 +925,11 @@
                     ${generateDetailStatCardHTML('Inspection Set', inspectionDateSet, 'purple', iCal)}
                     ${generateDetailStatCardHTML('AMC Ready', amcReady, 'gray', iAmc)}`;
             } else { // Aman
-                const appDone    = data.filter(c => c.workflowStatus === 'Application Done').length;
+                const appDone = data.filter(c => c.workflowStatus === 'Application Done').length;
                 const installing = data.filter(c => c.workflowStatus === 'Installation in Progress').length;
-                const installDone= data.filter(c => c.workflowStatus === 'Installation Done').length;
+                const installDone = data.filter(c => c.workflowStatus === 'Installation Done').length;
                 const renewalPending = data.filter(c => c.workflowStatus === 'Pending Renewal').length;
-                const ready      = data.filter(c => c.workflowStatus === 'Certificate ready').length;
+                const ready = data.filter(c => c.workflowStatus === 'Certificate ready').length;
                 detailCards = `
                     ${generateDetailStatCardHTML(`Total ${currentProject} Aman`, data.length, 'teal', iTotal)}
                     ${generateDetailStatCardHTML('Valid', status.valid, 'green', iValid)}
@@ -947,14 +947,14 @@
 
         function generateDetailStatCardHTML(title, value, color, icon) {
             const colorMap = {
-                teal:   { bg: 'bg-teal-500/10',   border: 'border-teal-500/30',   text: 'text-teal-400',   num: 'text-teal-300' },
-                green:  { bg: 'bg-green-500/10',  border: 'border-green-500/30',  text: 'text-green-400',  num: 'text-green-300' },
+                teal: { bg: 'bg-teal-500/10', border: 'border-teal-500/30', text: 'text-teal-400', num: 'text-teal-300' },
+                green: { bg: 'bg-green-500/10', border: 'border-green-500/30', text: 'text-green-400', num: 'text-green-300' },
                 yellow: { bg: 'bg-yellow-500/10', border: 'border-yellow-500/30', text: 'text-yellow-400', num: 'text-yellow-300' },
-                red:    { bg: 'bg-red-500/10',    border: 'border-red-500/30',    text: 'text-red-400',    num: 'text-red-300' },
-                blue:   { bg: 'bg-blue-500/10',   border: 'border-blue-500/30',   text: 'text-blue-400',   num: 'text-blue-300' },
+                red: { bg: 'bg-red-500/10', border: 'border-red-500/30', text: 'text-red-400', num: 'text-red-300' },
+                blue: { bg: 'bg-blue-500/10', border: 'border-blue-500/30', text: 'text-blue-400', num: 'text-blue-300' },
                 purple: { bg: 'bg-purple-500/10', border: 'border-purple-500/30', text: 'text-purple-400', num: 'text-purple-300' },
                 orange: { bg: 'bg-orange-500/10', border: 'border-orange-500/30', text: 'text-orange-400', num: 'text-orange-300' },
-                gray:   { bg: 'bg-gray-700/40',   border: 'border-gray-600/50',   text: 'text-gray-400',   num: 'text-white' },
+                gray: { bg: 'bg-gray-700/40', border: 'border-gray-600/50', text: 'text-gray-400', num: 'text-white' },
             };
             const c = colorMap[color] || colorMap.gray;
             return `
@@ -1455,7 +1455,7 @@
                 </div>
                 <div id="hub-cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             `;
-            
+
             if (activeCerts.length > 0) {
                 activeCerts.forEach(cert => {
                     const isExp = getValidityStatus(cert.expiryDate).text === 'Expired';
@@ -1503,9 +1503,9 @@
                     <p class="text-gray-400 text-center max-w-md">There are currently no active workflows or pending renewals for ${currentPage}.</p>
                 </div>`;
             }
-            
+
             contentHTML += `</div>`;
-            
+
             showModal("Active Workflows Hub", contentHTML, () => {
                 const searchInput = document.getElementById('hub-search');
                 const sortSelect = document.getElementById('hub-sort');
@@ -1535,9 +1535,9 @@
                     visibleCards.sort((a, b) => {
                         const da = getCardData(a);
                         const db = getCardData(b);
-                        if (sortVal === 'prop-asc')  return String(da.prop).localeCompare(String(db.prop), undefined, { numeric: true });
+                        if (sortVal === 'prop-asc') return String(da.prop).localeCompare(String(db.prop), undefined, { numeric: true });
                         if (sortVal === 'prop-desc') return String(db.prop).localeCompare(String(da.prop), undefined, { numeric: true });
-                        if (sortVal === 'expiry-asc')  return (da.expiry || '9999') < (db.expiry || '9999') ? -1 : 1;
+                        if (sortVal === 'expiry-asc') return (da.expiry || '9999') < (db.expiry || '9999') ? -1 : 1;
                         if (sortVal === 'expiry-desc') return (da.expiry || '9999') > (db.expiry || '9999') ? -1 : 1;
                         if (sortVal === 'status-asc') return da.status.localeCompare(db.status);
                         return 0;
@@ -1661,7 +1661,7 @@
                     ${field('Property Type', `<select id="propertyType" name="propertyType" class="${selectCls}">${Object.entries(propertyTypeOptions).map(([lbl, val]) => `<option value="${val}" ${normalizePropertyType(val) === normalizedCurrentType ? 'selected' : ''}>${lbl}</option>`).join('')}</select>`)}
                     <div id="phase-field-container" class="${normalizedCurrentType === 'warehouse' ? '' : 'hidden'}">
                         <label class="${labelCls}">Phase</label>
-                        <select id="phase" name="phase" class="${selectCls}">${['Phase 1','Phase 2','OPY','Other'].map(p => `<option value="${p}" ${formData.phase === p ? 'selected' : ''}>${p}</option>`).join('')}</select>
+                        <select id="phase" name="phase" class="${selectCls}">${['Phase 1', 'Phase 2', 'OPY', 'Other'].map(p => `<option value="${p}" ${formData.phase === p ? 'selected' : ''}>${p}</option>`).join('')}</select>
                     </div>
                     ${field('Workflow Status', `<select id="modalWorkflowStatus" name="workflowStatus" class="${selectCls}">${(isCivilDefence ? CD_WORKFLOW_STEPS : AMAN_WORKFLOW_STEPS).map(s => `<option value="${s}" ${formData.workflowStatus === s ? 'selected' : ''}>${s}</option>`).join('')}</select>`)}
                     ${sectionHeader('Certificate Dates')}
@@ -1679,10 +1679,10 @@
                         </div>` : ''}
                     ${isAman ? `
                         ${sectionHeader('Aman Device IDs')}
-                        ${field('Account ID',  `<input type="text" id="accountId"  name="accountId"  value="${formData.accountId  || ''}" class="${inputCls}" placeholder="Account ID">`)}
-                        ${field('Record ID',   `<input type="text" id="recordId"   name="recordId"   value="${formData.recordId   || ''}" class="${inputCls}" placeholder="Record ID">`)}
-                        ${field('Device ID',   `<input type="text" id="deviceId"   name="deviceId"   value="${formData.deviceId   || ''}" class="${inputCls}" placeholder="Device ID">`)}
-                        ${field('Serial No.',  `<input type="text" id="serialNumber" name="serialNumber" value="${formData.serialNumber || ''}" class="${inputCls}" placeholder="Serial Number">`)}
+                        ${field('Account ID', `<input type="text" id="accountId"  name="accountId"  value="${formData.accountId || ''}" class="${inputCls}" placeholder="Account ID">`)}
+                        ${field('Record ID', `<input type="text" id="recordId"   name="recordId"   value="${formData.recordId || ''}" class="${inputCls}" placeholder="Record ID">`)}
+                        ${field('Device ID', `<input type="text" id="deviceId"   name="deviceId"   value="${formData.deviceId || ''}" class="${inputCls}" placeholder="Device ID">`)}
+                        ${field('Serial No.', `<input type="text" id="serialNumber" name="serialNumber" value="${formData.serialNumber || ''}" class="${inputCls}" placeholder="Serial Number">`)}
                     ` : ''}
                     ${sectionHeader('Notes')}
                     <div class="col-span-2"><textarea id="notes" name="notes" rows="2" class="${inputCls} resize-none" placeholder="Optional notes...">${formData.notes || ''}</textarea></div>
@@ -1693,7 +1693,7 @@
                             ${formData.certificateLink ? `
                             <div class="flex items-center justify-between gap-2 mb-1">
                                 <span class="text-xs text-gray-400 truncate flex-1" title="${formData.certificateLink}">
-                                    📎 Current: <span class="text-teal-400">${formData.certificateLink.length > 40 ? formData.certificateLink.substring(formData.certificateLink.lastIndexOf('_')+1) : formData.certificateLink}</span>
+                                    📎 Current: <span class="text-teal-400">${formData.certificateLink.length > 40 ? formData.certificateLink.substring(formData.certificateLink.lastIndexOf('_') + 1) : formData.certificateLink}</span>
                                 </span>
                                 <button type="button" id="view-current-cert-btn" class="flex-shrink-0 text-xs px-2 py-1 rounded bg-teal-700/50 text-teal-300 hover:bg-teal-600/60 transition-colors">View Current</button>
                             </div>` : '<p class="text-xs text-gray-500 mb-1">No certificate linked yet.</p>'}
@@ -2779,11 +2779,12 @@
 
         function handleDownloadReport(type) {
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const isCivilDefence = type === 'Civil Defence';
+            // Aman report uses landscape to fit all property columns
+            const doc = isCivilDefence ? new jsPDF() : new jsPDF('landscape', 'mm', 'a4');
 
             const dataArray = type === 'Civil Defence' ? cdCerts : amanCerts;
             const filters = currentFilters[type];
-            const isCivilDefence = type === 'Civil Defence';
 
             const getLower = (item, field) => String(item[field] || '').toLowerCase();
 
@@ -2820,19 +2821,36 @@
 
             // 3. Setup PDF
             const reportDate = new Date().toLocaleDateString('en-GB');
-            doc.setFontSize(18);
-            doc.text(`${type} Status Report - ${currentProject}`, 14, 22);
-            doc.setFontSize(11);
-            doc.text(`Generated on: ${reportDate}`, 14, 30);
+            const pageWidth = doc.internal.pageSize.getWidth();
 
-            let finalY = 35;
+            if (!isCivilDefence) {
+                // Aman — teal landscape header banner
+                doc.setFillColor(22, 160, 133);
+                doc.rect(0, 0, pageWidth, 20, 'F');
+                doc.setTextColor(255, 255, 255);
+                doc.setFontSize(13);
+                doc.setFont(undefined, 'bold');
+                doc.text(`Aman Certificate Report — ${currentProject}`, 14, 13);
+                doc.setFontSize(9);
+                doc.setFont(undefined, 'normal');
+                doc.text(`Generated: ${reportDate}  |  Records: ${reportData.length}`, pageWidth - 14, 13, { align: 'right' });
+                doc.setTextColor(0, 0, 0);
+            } else {
+                doc.setFontSize(18);
+                doc.text(`${type} Status Report - ${currentProject}`, 14, 22);
+                doc.setFontSize(11);
+                doc.text(`Generated on: ${reportDate}`, 14, 30);
+            }
+
+            let finalY = isCivilDefence ? 35 : 25;
 
             // 4. Define Helper for Adding Sections
             const addSection = (title, sectionData) => {
                 if (sectionData.length === 0) return;
 
                 // Check page break for Main Header
-                if (finalY > 250) {
+                const pageH = doc.internal.pageSize.getHeight();
+                if (finalY > pageH - 40) {
                     doc.addPage();
                     finalY = 20;
                 }
@@ -2870,9 +2888,20 @@
                     if (subData.length === 0) return;
 
                     // Check page break for Sub Table
-                    if (finalY > 250) {
+                    if (finalY > doc.internal.pageSize.getHeight() - 40) {
                         doc.addPage();
-                        finalY = 20;
+                        if (!isCivilDefence) {
+                            // repeat thin header on new page
+                            doc.setFillColor(22, 160, 133);
+                            doc.rect(0, 0, pageWidth, 10, 'F');
+                            doc.setTextColor(255, 255, 255);
+                            doc.setFontSize(8);
+                            doc.text(`Aman Report  |  ${currentProject}  |  ${reportDate}`, 14, 7);
+                            doc.setTextColor(0, 0, 0);
+                            finalY = 14;
+                        } else {
+                            finalY = 20;
+                        }
                     }
 
                     // Sub-Header
@@ -2906,26 +2935,60 @@
                             ];
                         });
                     } else {
-                        // Aman
-                        head = ['Property', 'Phase', 'Expiry', 'Status', 'Workflow', 'Account ID'];
+                        // Aman — all property fields, landscape
+                        head = ['Prop. No.', 'Phase', 'Account ID', 'Record ID', 'Device ID', 'Serial No.', 'Expiry Date', 'Status', 'Workflow', 'Notes'];
                         body = subData.map(c => [
-                            c.propertyNumber,
-                            c.phase || '',
+                            c.propertyNumber || '—',
+                            c.phase          || '—',
+                            c.accountId      || '—',
+                            c.recordId       || '—',
+                            c.deviceId       || '—',
+                            c.serialNumber   || '—',
                             formatDate(c.expiryDate),
                             getValidityStatus(c.expiryDate).text,
-                            c.workflowStatus || 'N/A',
-                            c.accountId || ''
+                            c.workflowStatus || '—',
+                            c.notes          || ''
                         ]);
                     }
+
+                    const amanColStyles = isCivilDefence ? {} : {
+                        0: { cellWidth: 22, fontStyle: 'bold' },
+                        1: { cellWidth: 16, halign: 'center' },
+                        2: { cellWidth: 30 },
+                        3: { cellWidth: 28 },
+                        4: { cellWidth: 28 },
+                        5: { cellWidth: 30 },
+                        6: { cellWidth: 24, halign: 'center' },
+                        7: { cellWidth: 22, halign: 'center' },
+                        8: { cellWidth: 30 },
+                        9: { cellWidth: 26, textColor: [100,100,100], fontStyle: 'italic' }
+                    };
 
                     doc.autoTable({
                         startY: finalY + 8,
                         head: [head],
                         body: body,
-                        theme: 'striped',
-                        headStyles: { fillColor: isCivilDefence ? [41, 128, 185] : [22, 160, 133] },
-                        styles: { fontSize: 9 },
-                        margin: { top: 20, left: 14 }
+                        theme: 'grid',
+                        headStyles: {
+                            fillColor: isCivilDefence ? [41, 128, 185] : [22, 160, 133],
+                            textColor: 255,
+                            fontStyle: 'bold',
+                            fontSize: isCivilDefence ? 9 : 7.5,
+                            halign: 'center',
+                            cellPadding: 2
+                        },
+                        styles: {
+                            fontSize: isCivilDefence ? 9 : 7,
+                            cellPadding: 1.8,
+                            lineColor: [180, 180, 180],
+                            lineWidth: 0.2,
+                            valign: 'middle',
+                            overflow: 'linebreak'
+                        },
+                        columnStyles: amanColStyles,
+                        alternateRowStyles: { fillColor: [245, 250, 252] },
+                        bodyStyles: { fillColor: [255, 255, 255] },
+                        margin: { top: 20, left: isCivilDefence ? 14 : 10, right: isCivilDefence ? 14 : 10 }
                     });
 
                     finalY = doc.lastAutoTable.finalY + 10;
@@ -2974,6 +3037,7 @@
 
             doc.save(`${type.replace(/\s/g, '_')}_Report_${currentProject}_${new Date().toISOString().split('T')[0]}.pdf`);
         }
+
 
         function handleExportData(type, data) {
             // Filter Export Data by Current Project
@@ -3259,7 +3323,7 @@
             const body = `Hello Team,\n\nPlease note that the Civil Defence certificate for Property Number ${cert.propertyNumber} has expired on ${formatDate(cert.expiryDate)}.\n\nPlease initiate the renewal process, and reply with the application details and inspection schedule once you receive a date.\n\nThank you.`;
             const subject = `Urgent: Renewal Required for Property ${cert.propertyNumber}`;
             const toEmail = window.localStorage.getItem('fireAmcEmail') || 'fireamc@example.com';
-            
+
             const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             const link = document.createElement('a');
             link.href = mailtoLink;
@@ -3276,7 +3340,7 @@
             const body = `Hello Team,\n\nPlease note that the following Civil Defence certificates have expired:\n\n${propList}\n\nPlease initiate the renewal process for these properties, and reply with the application details and inspection schedules once you receive the dates.\n\nThank you.`;
             const subject = `Urgent: Bulk Renewal Required for ${expired.length} Properties`;
             const toEmail = window.localStorage.getItem('fireAmcEmail') || 'fireamc@example.com';
-            
+
             const mailtoLink = `mailto:${toEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
             const link = document.createElement('a');
             link.href = mailtoLink;
@@ -3398,7 +3462,7 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = `${type.replace(/\s/g, '_')}_export_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `${type.replace(/\s/g, '_')}_export_${new Date().toISOString().slice(0, 10)}.json`;
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -3487,8 +3551,8 @@
                 let dotStyle = isActive
                     ? 'background:linear-gradient(135deg,#0d9488,#14b8a6);color:white;box-shadow:0 0 18px rgba(20,184,166,0.7);'
                     : isCompleted
-                    ? 'background:#134e4a;color:#5eead4;'
-                    : 'background:#1f2937;color:#6b7280;border:1px solid #374151;';
+                        ? 'background:#134e4a;color:#5eead4;'
+                        : 'background:#1f2937;color:#6b7280;border:1px solid #374151;';
                 stepperHTML += `
                 <div class="flex flex-col items-center" style="flex:1;min-width:0;">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm z-10" style="${dotStyle}">
@@ -3576,6 +3640,28 @@
                     <input type="date" id="wf-advance-inspection-date" class="flex-1 bg-gray-900 border border-yellow-500/40 rounded-xl px-4 py-3 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
                     <button id="wf-advance-inspection-btn" class="px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105 whitespace-nowrap" style="background:linear-gradient(135deg,#92400e,#f59e0b);box-shadow:0 4px 20px rgba(245,158,11,0.3);">
                         Confirm Date
+                    </button>
+                </div>`;
+            } else if (cert.workflowStatus === 'AMC ready') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-purple-400">AMC Contract Active</h4><p class="text-sm text-gray-400">The AMC is in place. Notify the Fire team to initiate the renewal application when ready.</p></div>
+                </div>
+                <div class="flex flex-col gap-3 w-full">
+                    <button id="wf-amc-inform-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105 w-full" style="background:linear-gradient(135deg,#1d4ed8,#3b82f6);box-shadow:0 4px 20px rgba(59,130,246,0.35);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        Send Email &amp; Mark as Informed
+                    </button>
+                    <button id="wf-amc-mark-informed-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-gray-200 transition-all duration-200 hover:scale-105 w-full bg-gray-700 hover:bg-gray-600 border border-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                        Already Informed (No Email)
+                    </button>
+                    <button id="wf-amc-awaiting-btn" class="flex items-center gap-3 px-6 py-3 rounded-xl font-bold text-gray-200 transition-all duration-200 hover:scale-105 w-full bg-yellow-800/40 hover:bg-yellow-700/50 border border-yellow-600/40 text-yellow-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                        Skip to: Awaiting Inspection
                     </button>
                 </div>`;
             } else if (cert.workflowStatus === 'Certificate ready') {
@@ -3676,7 +3762,7 @@
             }
 
             stepperHTML += `
-                <div class="bg-gray-900/60 border border-gray-700/60 rounded-2xl p-6 flex flex-col items-start">
+                <div id="wf-action-card" class="bg-gray-900/60 border border-gray-700/60 rounded-2xl p-6 flex flex-col items-start">
                     ${actionHTML}
                 </div>
             </div>`;
@@ -3688,7 +3774,7 @@
 
                 // Helper: prompt for new certificate dates before setting Ready
                 function showCertReadyPrompt() {
-                    const actionCard = document.querySelector('#modal-container .bg-gray-900\\/60.rounded-2xl.p-6');
+                    const actionCard = document.getElementById('wf-action-card');
                     if (!actionCard) return;
                     actionCard.innerHTML = `
                         <div class="flex items-center gap-4 mb-5">
@@ -3736,7 +3822,8 @@
                         if (fileInput && fileInput.files.length > 0) {
                             const file = fileInput.files[0];
                             if (!oneDriveFolderHandle) {
-                                showToast('No OneDrive folder linked. Certificate saved without document.');
+                                showToast('⚠️ Please link your OneDrive folder in Settings first to upload documents.');
+                                return;
                             } else {
                                 try {
                                     uploadStatus.textContent = 'Saving certificate...';
@@ -3754,6 +3841,8 @@
                                     uploadStatus.textContent = '✓ Certificate saved!';
                                 } catch (err) {
                                     uploadStatus.textContent = 'Upload failed: ' + err.message;
+                                    showToast('⚠️ Upload failed: ' + err.message);
+                                    return;
                                 }
                             }
                         }
@@ -3765,7 +3854,7 @@
                         cert.amcOnly = false;
                         saveDataToFirebase();
                         hideModal();
-                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        setTimeout(() => handleShowWorkflowManager(id, type, window._wfFromHub), 10);
                         showToast('🎉 Certificate marked as Ready!');
                     });
                     document.getElementById('cr-cancel-btn').addEventListener('click', hideModal);
@@ -3780,6 +3869,43 @@
                         hideModal();
                         setTimeout(() => handleShowWorkflowManager(id, type), 10);
                         showToast('✓ Marked as Informed (no email sent)');
+                    });
+                }
+
+                // AMC ready → Send email & mark Informed
+                const amcInformBtn = document.getElementById('wf-amc-inform-btn');
+                if (amcInformBtn) {
+                    amcInformBtn.addEventListener('click', () => {
+                        handleEmailFireTeam(cert);
+                        cert.workflowStatus = 'Informed Fire team';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Email sent & marked as Informed Fire team');
+                    });
+                }
+
+                // AMC ready → Already informed (no email)
+                const amcMarkInformedBtn = document.getElementById('wf-amc-mark-informed-btn');
+                if (amcMarkInformedBtn) {
+                    amcMarkInformedBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Informed Fire team';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Marked as Informed Fire team (no email sent)');
+                    });
+                }
+
+                // AMC ready → Skip directly to Awaiting inspection
+                const amcAwaitingBtn = document.getElementById('wf-amc-awaiting-btn');
+                if (amcAwaitingBtn) {
+                    amcAwaitingBtn.addEventListener('click', () => {
+                        cert.workflowStatus = 'Awaiting inspection';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        showToast('✓ Advanced to Awaiting Inspection');
                     });
                 }
 
@@ -3873,9 +3999,13 @@
                                     await wr.write(file);
                                     await wr.close();
                                     cert.certificateLink = fileName;
-                                } catch (e) { showToast('File save failed: ' + e.message); }
+                                } catch (e) {
+                                    showToast('⚠️ File save failed: ' + e.message);
+                                    return;
+                                }
                             } else {
-                                showToast('No OneDrive folder linked. Certificate saved without document.');
+                                showToast('⚠️ Please link your OneDrive folder in Settings first to upload documents.');
+                                return;
                             }
                         }
                         cert.expiryDate = newExpiry;
@@ -3942,9 +4072,13 @@
                                     await wr.write(file);
                                     await wr.close();
                                     cert.certificateLink = fileName;
-                                } catch (e) { showToast('File save failed: ' + e.message); }
+                                } catch (e) {
+                                    showToast('⚠️ File save failed: ' + e.message);
+                                    return;
+                                }
                             } else {
-                                showToast('No OneDrive folder linked. Certificate saved without document.');
+                                showToast('⚠️ Please link your OneDrive folder in Settings first to upload documents.');
+                                return;
                             }
                         }
                         cert.expiryDate = expiryVal;
@@ -3964,7 +4098,7 @@
                         cert.inspectionDate = date;
                         saveDataToFirebase();
                         hideModal();
-                        setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                        setTimeout(() => handleShowWorkflowManager(id, type, window._wfFromHub), 10);
                         showToast('✓ Inspection date saved');
                     });
                 }
@@ -3981,7 +4115,8 @@
                 const logResultBtn = document.getElementById('wf-log-result-btn');
                 if (logResultBtn) {
                     logResultBtn.addEventListener('click', () => {
-                        const contentArea = document.querySelector('#modal-container .bg-gray-900\\/60.rounded-2xl.p-6');
+                        const contentArea = document.getElementById('wf-action-card');
+                        if (!contentArea) return;
                         contentArea.innerHTML = `
                             <h4 class="text-xl font-bold text-teal-400 mb-6">Did the inspection take place?</h4>
                             <div class="flex gap-4">
@@ -3995,7 +4130,7 @@
                             saveDataToFirebase();
                             render();
                             hideModal();
-                            setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                            setTimeout(() => handleShowWorkflowManager(id, type, window._wfFromHub), 10);
                         });
 
                         document.getElementById('wf-done-btn').addEventListener('click', () => {
@@ -4013,43 +4148,11 @@
                                 showToast('Inspection Failed. Status reset to Awaiting inspection.');
                                 saveDataToFirebase();
                                 hideModal();
-                                setTimeout(() => handleShowWorkflowManager(id, type), 10);
+                                setTimeout(() => handleShowWorkflowManager(id, type, window._wfFromHub), 10);
                             });
 
                             document.getElementById('wf-pass-btn').addEventListener('click', () => {
-                                contentArea.innerHTML = `
-                                    <h4 class="text-xl font-bold text-green-400 mb-4">Inspection Passed!</h4>
-                                    <p class="text-gray-300 mb-6">Please update the certificate details.</p>
-                                    <div class="grid grid-cols-2 gap-4 w-full max-w-md text-left mb-6">
-                                        <div>
-                                            <label class="block text-sm text-gray-400 mb-1">New Issue Date</label>
-                                            <input type="date" id="wf-new-issue" class="w-full bg-gray-800 border-gray-600 rounded px-3 py-2 text-white">
-                                        </div>
-                                        <div>
-                                            <label class="block text-sm text-gray-400 mb-1">New Expiry Date</label>
-                                            <input type="date" id="wf-new-expiry" class="w-full bg-gray-800 border-gray-600 rounded px-3 py-2 text-white">
-                                        </div>
-                                    </div>
-                                    <button id="wf-finalize-btn" class="px-8 py-3 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg shadow-lg transition-colors">Finalize & Mark Ready</button>
-                                 `;
-
-                                document.getElementById('wf-finalize-btn').addEventListener('click', () => {
-                                    const issue = document.getElementById('wf-new-issue').value;
-                                    const expiry = document.getElementById('wf-new-expiry').value;
-                                    if (issue) cert.issueDate = issue;
-                                    if (expiry) cert.expiryDate = expiry;
-
-                                    cert.workflowStatus = 'Certificate ready';
-                                    cert.inspectionDate = '';
-                                    cert.amcOnly = false;
-                                    cert.tenantCalled = false;
-                                    cert.siteInformed = false;
-
-                                    showToast("Success! Certificate is now Ready.");
-                                    saveDataToFirebase();
-                                    render();
-                                    hideModal();
-                                });
+                                showCertReadyPrompt();
                             });
                         });
                     });
