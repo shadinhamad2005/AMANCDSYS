@@ -425,7 +425,7 @@
             'Certificate ready':  'Certificate Ready',
         };
 
-        const AMAN_WORKFLOW_STEPS = ['Application Submitted', 'Unhealthy FACP Panel', 'Cert Issued (Pending Install)', 'Inspection & Installation', 'Installation Failed', 'Renewal Pending', 'Renewal Faults Pending', 'Active & Monitored'];
+        const AMAN_WORKFLOW_STEPS = ['Application Submitted', 'Unhealthy FACP Panel', 'Cert Issued (Pending Install)', 'Inspection & Installation', 'Installation Failed', 'Renewal Pending', 'Renewal Faults Pending', 'Paid - Pending Certificate', 'Active & Monitored'];
 
         const AMAN_STEP_MIGRATION = {
             'Pending Renewal':          'Renewal Pending',
@@ -1300,8 +1300,15 @@
                 let amanWorkflowBadge = `<span class="text-gray-600 text-xs">—</span>`;
                 if (item.aman) {
                     const amanVal = getValidityStatus(item.aman.expiryDate);
+                    let missingCertWarning = '';
+                    if (item.aman.paymentReportLink && !item.aman.certificateLink) {
+                        missingCertWarning = `<div class="mt-1 flex items-center gap-1 text-yellow-400 text-[10px] cursor-pointer" onclick="alert('Payment done, certificate upload pending. Property is financially valid.')" title="Payment report uploaded, but certificate is missing">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                            Cert Pending
+                        </div>`;
+                    }
                     amanStatusBadge = `<div class="flex flex-col gap-1"><span>${formatDate(item.aman.expiryDate)}</span>${generateStatusBadge(amanVal)}</div>`;
-                    amanWorkflowBadge = generateWorkflowBadge(item.aman.workflowStatus, null, 'Aman Certificate');
+                    amanWorkflowBadge = `<div class="flex flex-col gap-1">${generateWorkflowBadge(item.aman.workflowStatus, null, 'Aman Certificate')}${missingCertWarning}</div>`;
                 }
 
                 return `
@@ -4182,10 +4189,14 @@
             } else {
                 // Aman dynamic linear timeline
                 const status = cert.workflowStatus;
-                if (['Renewal Pending', 'Renewal Faults Pending'].includes(status)) {
-                    steps = status === 'Renewal Faults Pending' 
-                        ? ['Renewal Pending', 'Renewal Faults Pending', 'Active & Monitored'] 
-                        : ['Renewal Pending', 'Active & Monitored'];
+                if (['Renewal Pending', 'Renewal Faults Pending', 'Paid - Pending Certificate'].includes(status)) {
+                    if (status === 'Renewal Faults Pending') {
+                        steps = ['Renewal Pending', 'Renewal Faults Pending', 'Active & Monitored'];
+                    } else if (status === 'Paid - Pending Certificate') {
+                        steps = ['Renewal Pending', 'Paid - Pending Certificate', 'Active & Monitored'];
+                    } else {
+                        steps = ['Renewal Pending', 'Active & Monitored'];
+                    }
                 } else if (status === 'Active & Monitored') {
                     // Default to simple timeline for active
                     steps = ['Application Submitted', 'Inspection & Installation', 'Active & Monitored'];
@@ -4450,6 +4461,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                         Send Renewal Email to Aman AMC
                     </button>
+                    <button id="wf-aman-paid-pending-btn" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-yellow-300 bg-yellow-900/40 hover:bg-yellow-800/50 border border-yellow-700/50 transition-all mt-2">
+                        Payment Done (Cert Pending / FACP Issue)
+                    </button>
                     <div class="border-t border-gray-700 mt-2 pt-4">
                         <button id="wf-aman-certify-active-btn" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-green-300 bg-green-900/40 hover:bg-green-800/50 border border-green-700/50 transition-all">
                             Upload Certificate & Mark Active
@@ -4469,6 +4483,17 @@
                         Faults Rectified & Certificate Issued
                     </button>
                 </div>`;
+            } else if (cert.workflowStatus === 'Paid - Pending Certificate') {
+                actionHTML = `
+                <div class="flex items-center gap-4 mb-5">
+                    <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    </div>
+                    <div><h4 class="text-xl font-bold text-yellow-400">Payment Done, Cert Pending</h4><p class="text-sm text-gray-400">Waiting for physical certificate due to FACP or other delays. Confirm when received.</p></div>
+                </div>
+                <button id="wf-aman-cert-received-btn" class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-bold text-green-300 bg-green-900/40 hover:bg-green-800/50 border border-green-700/50 transition-all">
+                    Certificate Received & Mark Active
+                </button>`;
             } else if (cert.workflowStatus === 'Application Submitted') {
                 actionHTML = `
                 <div class="flex items-center gap-4 mb-5">
@@ -4653,6 +4678,134 @@
                     document.getElementById('cr-cancel-btn').addEventListener('click', hideModal);
                 }
 
+                function showPaymentPendingPrompt() {
+                    const actionCard = document.getElementById('wf-action-card');
+                    if (!actionCard) return;
+                    
+                    const todayStr = new Date().toISOString().split('T')[0];
+                    let nextYearStr = '';
+                    if (cert.expiryDate) {
+                        const ed = new Date(cert.expiryDate);
+                        if (!isNaN(ed)) {
+                            ed.setFullYear(ed.getFullYear() + 1);
+                            nextYearStr = ed.toISOString().split('T')[0];
+                        }
+                    }
+                    if (!nextYearStr) {
+                        const d = new Date();
+                        d.setFullYear(d.getFullYear() + 1);
+                        nextYearStr = d.toISOString().split('T')[0];
+                    }
+
+                    actionCard.innerHTML = `
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-14 h-14 rounded-2xl bg-yellow-500/10 border border-yellow-500/30 flex items-center justify-center flex-shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                            </div>
+                            <div><h4 class="text-xl font-bold text-yellow-400">Record Payment</h4><p class="text-sm text-gray-400">Log payment details to mark Aman as financially valid while awaiting the certificate.</p></div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 w-full mb-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">Payment Date <span class="text-red-400">*</span></label>
+                                <input type="date" id="pp-payment-date" value="${todayStr}" class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">Renewal Cost (AED) <span class="text-red-400">*</span></label>
+                                <input type="number" step="0.01" id="pp-renewal-cost" placeholder="e.g. 1500" class="w-full bg-gray-900 border border-red-500/50 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div class="w-full mb-4">
+                            <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">Expected New Expiry Date</label>
+                            <input type="date" id="pp-expiry-date" value="${nextYearStr}" class="w-full bg-gray-900 border border-gray-600 rounded-xl px-4 py-2.5 text-white focus:ring-2 focus:ring-yellow-500 focus:outline-none" title="This will make the certificate appear as Valid in the system">
+                        </div>
+                        <div class="w-full mb-5">
+                            <label class="block text-xs font-semibold text-gray-400 mb-2 uppercase tracking-widest">Upload Payment Report (PDF/Image)</label>
+                            <div class="flex items-center gap-3 bg-gray-900/80 border border-gray-700 rounded-xl px-4 py-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                                <input type="file" id="pp-report-file" accept=".pdf,image/*" class="flex-1 text-sm text-gray-300 file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-gray-700 file:text-gray-200 hover:file:bg-gray-600 cursor-pointer">
+                                ${cert.paymentReportLink ? `<button type="button" onclick="window.openLocalFile('${cert.paymentReportLink}')" class="text-xs text-teal-400 hover:underline whitespace-nowrap flex items-center gap-1"><svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6'></path><polyline points='15 3 21 3 21 9'></polyline><line x1='10' y1='14' x2='21' y2='3'></line></svg>View Current</button>` : ''}
+                            </div>
+                            <p id="pp-upload-status" class="text-xs text-gray-500 mt-1 hidden"></p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button id="pp-confirm-btn" class="flex-1 px-6 py-3 rounded-xl font-bold text-white transition-all duration-200 hover:scale-105" style="background:linear-gradient(135deg,#ca8a04,#eab308);box-shadow:0 4px 20px rgba(234,179,8,0.35);">
+                                Save Payment & Update Expiry
+                            </button>
+                            <button id="pp-cancel-btn" class="px-6 py-3 rounded-xl font-bold text-gray-300 bg-gray-800 border border-gray-600 hover:bg-gray-700 transition-colors">
+                                Cancel
+                            </button>
+                        </div>
+                    `;
+
+                    document.getElementById('pp-cancel-btn').addEventListener('click', () => {
+                        hideModal();
+                        setTimeout(() => handleInteractiveWorkflow(id, type, window._wfFromHub), 10);
+                    });
+
+                    const fileInput = document.getElementById('pp-report-file');
+                    const uploadStatus = document.getElementById('pp-upload-status');
+                    let uploadedFilePath = cert.paymentReportLink || '';
+
+                    fileInput.addEventListener('change', async (e) => {
+                        const file = e.target.files[0];
+                        if (!file) return;
+                        uploadStatus.classList.remove('hidden');
+                        uploadStatus.textContent = 'Saving locally...';
+                        
+                        try {
+                            if (!window.oneDriveFolderHandle) {
+                                throw new Error("OneDrive folder not linked.");
+                            }
+                            const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                            const fileName = `${Date.now()}_${safeName}`;
+                            const fileHandle = await window.oneDriveFolderHandle.getFileHandle(fileName, { create: true });
+                            const writable = await fileHandle.createWritable();
+                            await writable.write(file);
+                            await writable.close();
+                            uploadedFilePath = fileName;
+                            uploadStatus.textContent = 'Upload complete.';
+                            uploadStatus.className = 'text-xs text-green-400 mt-1';
+                        } catch (err) {
+                            console.error(err);
+                            uploadStatus.textContent = 'Upload failed: ' + err.message;
+                            uploadStatus.className = 'text-xs text-red-400 mt-1';
+                        }
+                    });
+
+                    document.getElementById('pp-confirm-btn').addEventListener('click', () => {
+                        const payDate = document.getElementById('pp-payment-date').value;
+                        const renCost = document.getElementById('pp-renewal-cost').value;
+                        const expDate = document.getElementById('pp-expiry-date').value;
+
+                        if (!payDate || !renCost) {
+                            showToast("Please enter Payment Date and Renewal Cost.");
+                            return;
+                        }
+
+                        // Update financial history
+                        if (!cert.financials) cert.financials = [];
+                        cert.financials.push({
+                            id: Date.now().toString(),
+                            type: 'Renewal',
+                            date: payDate,
+                            cost: renCost,
+                            notes: 'Paid - Certificate Pending',
+                            createdAt: new Date().toISOString()
+                        });
+
+                        cert.paymentReportLink = uploadedFilePath;
+                        if (expDate) {
+                            cert.expiryDate = expDate;
+                        }
+                        
+                        cert.workflowStatus = 'Paid - Pending Certificate';
+                        saveDataToFirebase();
+                        hideModal();
+                        setTimeout(() => handleInteractiveWorkflow(id, type, window._wfFromHub), 10);
+                        showToast('? Payment Recorded & Status Updated');
+                    });
+                }
+
                 // --- NEW CD WORKFLOW EVENT LISTENERS ---
                 const amcApplyBtn = document.getElementById('wf-cd-amc-apply-btn');
                 if (amcApplyBtn) {
@@ -4806,6 +4959,22 @@
                         hideModal();
                         setTimeout(() => handleInteractiveWorkflow(id, type, fromHub), 10);
                         showToast('⚠️ Marked as Unhealthy FACP Panel');
+                    });
+                }
+
+                // NEW Aman: Renewal Pending -> Paid - Pending Certificate
+                const amanPaidPendingBtn = document.getElementById('wf-aman-paid-pending-btn');
+                if (amanPaidPendingBtn) {
+                    amanPaidPendingBtn.addEventListener('click', () => {
+                        showPaymentPendingPrompt();
+                    });
+                }
+
+                // NEW Aman: Paid - Pending Certificate -> Active & Monitored
+                const amanCertReceivedBtn = document.getElementById('wf-aman-cert-received-btn');
+                if (amanCertReceivedBtn) {
+                    amanCertReceivedBtn.addEventListener('click', () => {
+                        showCertReadyPrompt('Active & Monitored');
                     });
                 }
 
