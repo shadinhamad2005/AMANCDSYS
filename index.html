@@ -251,31 +251,29 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('link-onedrive-btn').addEventListener('click', async () => {
-                try {
-                    let handle = await get('oneDriveHandle');
-                    if (handle && (await handle.queryPermission({ mode: 'readwrite' })) === 'prompt') {
-                        const perm = await handle.requestPermission({ mode: 'readwrite' });
-                        if (perm === 'granted') {
-                            oneDriveFolderHandle = handle;
-                            document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
-                            document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
-                            document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
-                            return;
-                        }
+        document.getElementById('link-onedrive-btn').addEventListener('click', async () => {
+            try {
+                let handle = await get('oneDriveHandle');
+                if (handle && (await handle.queryPermission({ mode: 'readwrite' })) === 'prompt') {
+                    const perm = await handle.requestPermission({ mode: 'readwrite' });
+                    if (perm === 'granted') {
+                        oneDriveFolderHandle = handle;
+                        document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
+                        document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
+                        document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
+                        return;
                     }
-
-                    handle = await window.showDirectoryPicker({ mode: 'readwrite' });
-                    await setIdb('oneDriveHandle', handle);
-                    oneDriveFolderHandle = handle;
-                    document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
-                    document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
-                    document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
-                } catch (e) {
-                    console.error("Folder picker error", e);
                 }
-            });
+
+                handle = await window.showDirectoryPicker({ mode: 'readwrite' });
+                await setIdb('oneDriveHandle', handle);
+                oneDriveFolderHandle = handle;
+                document.getElementById('onedrive-status-text').textContent = 'OneDrive Linked';
+                document.getElementById('link-onedrive-btn').classList.replace('text-blue-400', 'text-green-400');
+                document.getElementById('link-onedrive-btn').classList.replace('border-blue-500/50', 'border-green-500/50');
+            } catch (e) {
+                console.error("Folder picker error", e);
+            }
         });
 
         window.openLocalFile = async (fileName) => {
@@ -4753,12 +4751,16 @@
                         uploadStatus.textContent = 'Saving locally...';
                         
                         try {
-                            if (!window.oneDriveFolderHandle) {
+                            if (!oneDriveFolderHandle) {
+                                showToast('Please link your OneDrive folder in Settings first to upload documents.');
                                 throw new Error("OneDrive folder not linked.");
+                            }
+                            if ((await oneDriveFolderHandle.queryPermission({ mode: 'readwrite' })) !== 'granted') {
+                                await oneDriveFolderHandle.requestPermission({ mode: 'readwrite' });
                             }
                             const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
                             const fileName = `${Date.now()}_${safeName}`;
-                            const fileHandle = await window.oneDriveFolderHandle.getFileHandle(fileName, { create: true });
+                            const fileHandle = await oneDriveFolderHandle.getFileHandle(fileName, { create: true });
                             const writable = await fileHandle.createWritable();
                             await writable.write(file);
                             await writable.close();
