@@ -456,6 +456,12 @@
                 if (AMAN_STEP_MIGRATION[cert.workflowStatus]) {
                     cert.workflowStatus = AMAN_STEP_MIGRATION[cert.workflowStatus];
                 }
+                // Migrate any errant financials records created by previous workflow
+                if (cert.financials && Array.isArray(cert.financials)) {
+                    if (!cert.renewalHistory) cert.renewalHistory = [];
+                    cert.renewalHistory = [...cert.renewalHistory, ...cert.financials];
+                    delete cert.financials;
+                }
             });
         }
 
@@ -4785,8 +4791,8 @@
                         }
 
                         // Update financial history
-                        if (!cert.financials) cert.financials = [];
-                        cert.financials.push({
+                        if (!cert.renewalHistory) cert.renewalHistory = [];
+                        cert.renewalHistory.push({
                             id: Date.now().toString(),
                             type: 'Renewal',
                             date: payDate,
