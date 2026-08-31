@@ -1,0 +1,66 @@
+/* Custom scrollbar matching portal */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.portal-page {
+    display: none;
+}
+.portal-page.active {
+    display: block;
+    animation: fadeIn 0.2s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(3px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Pill Switches */
+.pill-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: #e2e8f0;
+    border-radius: 9999px;
+    padding: 2px 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.dark .pill-toggle {
+    background: #334155;
+}
+
+/* Accela watermark */
+.accela-badge {
+    font-size: 11px;
+    color: #94a3b8;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Portal Chooser Hover Effects */
+.portal-choice-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.portal-choice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px -6px rgba(0, 0, 0, 0.12), 0 4px 8px -4px rgba(0, 0, 0, 0.06);
+}
